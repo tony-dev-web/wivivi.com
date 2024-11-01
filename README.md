@@ -1,2 +1,2 @@
 # wivivi.com
-Bourse de fret open source pour le secteur du transport
+Bourse de fret européenne bientot disponible en Open source
