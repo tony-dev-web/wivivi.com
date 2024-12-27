@@ -1,0 +1,26 @@
+{% extends "partials/layout-without-topbar-sidebar.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+    <section aria-labelledby="titre1" class="max-w-[550px] flex-none w-full bg-white border p-6 sm:p-10 lg:px-10 lg:py-14 rounded-2xl loginform dark:bg-darklight  ">
+        <h1 id="titre1" class="mb-2 text-2xl font-semibold text-center dark:text-white">{{ ui.titre }}</h1>
+        <p class="text-center text-muted mb-7 dark:text-darkmuted">Entrez votre email pour vous connectez</p>
+        <form class="space-y-4" method="POST" >
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}" role="alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %} 
+            <div>
+                <input type="email" name="email" placeholder="Email" class="form-input" required />
+            </div>
+            <button type="submit" aria-label="bouton connexion" class="btn w-full py-2.5 text-base bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">Connexion</button>
+            <p class="text-sm mt-2 dark:text-white">{{ ui.texte1 }}</p>
+        </form>
+    </section>
+{% endblock content%}

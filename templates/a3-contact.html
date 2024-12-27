@@ -1,0 +1,37 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position": 1,"name": "Wivivi","item": "https://wivivi.com/"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<p>Vous pouvez désormais contacter l'équipe de Wivivi</p>
+
+                    <div class="md:w-8/12 flex flex-col gap-4 min-h-[calc(100vh-212px)]">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                                <form class="space-y-4">
+                                <div>
+                                    <input type="text" name="sujet" placeholder="Sujet *" class="form-input" required />
+                                </div>
+                                <div>
+                                    <textarea class="form-textarea" name="question" cols="3" placeholder="Question ? *"></textarea>
+                                </div>
+                                <div>
+                                    <input type="email" name="email" placeholder="Email *" class="form-input" required />
+                                </div>
+                                <div>
+                                    <input type="text" name="telephone" placeholder="Telephone" class="form-input" />
+                                </div>
+                                <div>
+                                    <input type="text" name="connu" placeholder="Comment avez-vous connu Wivivi" class="form-input"/>
+                                </div>
+                                <div>
+                                    <input type="submit" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" value="Contactez nous">
+                                </div></form>
+                            </div>{% if ui.texte1 %}<div class="mt-20 mb-20">{{ ui.texte1 }}</div>{% endif %}
+                        </div>
+{% endblock content %}

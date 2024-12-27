@@ -1,0 +1,111 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+<nav class="w-full"><ul class="flex flex-wrap items-center space-x-2">
+                    <li class="flex items-center space-x-2">
+                        <a class="  text-black/50      " href="/">{{ bodys.accueil }}</a>
+                    </li>
+                    <li class="flex items-center space-x-2 chev-r">
+                        <a class="  text-black/50      " href="{{ bodys.compte_url }}">{{ bodys.compte }}</a>
+                    </li>
+                   <li class="mt-2 block w-full text-xl font-semibold dark:text-white"><h1>Formulaire pour les lignes régulière</h1></li>
+                </ul>
+</nav>
+<div class="lg:w-8/12 p-5 bg-white border rounded   dark:bg-darklight  ">
+    <form class="space-y-4" method="post">
+    
+        <div class="mb-4" ><select class="form-select" name="categorie">
+            <option>Type de transport</option>
+            <option value="frigorifique">Frigorifique</option>
+            <option value="tautliner">Tautliner</option>
+            <option value="porte-voiture">Porte voiture</option>
+            <option value="animaux">Animaux</option>
+            <option value="citerne">Citerne</option>
+            <option value="benne">Benne</option>
+            <option value="conteneur">Conteneur</option>
+            <option value="convoi">Convoi</option>
+         </select>
+</div>
+
+        <div>
+            <input type="text" {% if ui.ville_depart %} value="{{ ui.ville_depart }}" {% endif %} name="ville_depart" placeholder="Ville de départ" class="form-input" required />
+        </div>
+        
+        
+        <div>
+            <select class="form-select" name="pays_depart">
+                <option>Pays d'expédition</option>
+                <option {% if ui.pays_depart == 'france' %} selected {% endif %} value="france">France</option>
+                <option {% if ui.pays_depart == 'royaume uni' %} selected {% endif %} value="royaume uni">Royaume uni</option>
+                <option {% if ui.pays_depart == 'belgique' %} selected {% endif %} value="belgique">Belgique</option>
+                <option {% if ui.pays_depart == 'allemagne' %} selected {% endif %} value="allemagne">Allemagne</option>
+                <option {% if ui.pays_depart == 'italie' %} selected {% endif %} value="italie">Italie</option>
+                <option {% if ui.pays_depart == 'espagne' %} selected {% endif %} value="espagne">Espagne</option>
+                <option {% if ui.pays_depart == 'pays_bas' %} selected {% endif %} value="pays bas">Pays bas</option>
+                <option {% if ui.pays_depart == 'portugal' %} selected {% endif %} value="portugal">Portugal</option>
+                <option {% if ui.pays_depart == 'suisse' %} selected {% endif %} value="suisse">Suisse</option>
+                <option {% if ui.pays_depart == 'autriche' %} selected {% endif %} value="autriche">Autriche</option>
+                <option {% if ui.pays_depart == 'pologne' %} selected {% endif %} value="pologne">Pologne</option>
+                <option {% if ui.pays_depart == 'roumanie' %} selected {% endif %} value="roumanie">Roumanie</option>
+                <option {% if ui.pays_depart == 'slovenie' %} selected {% endif %} value="slovenie">Slovenie</option>
+                <option {% if ui.pays_depart == 'slovaquie' %} selected {% endif %} value="slovaquie">Slovaquie</option>
+                <option {% if ui.pays_depart == 'croatie' %} selected {% endif %} value="croatie">Croatie</option>
+                <option {% if ui.pays_depart == 'hongrie' %} selected {% endif %} value="hongrie">Hongrie</option>
+                <option {% if ui.pays_depart == 'serbie' %} selected {% endif %} value="serbie">Serbie</option>
+                <option {% if ui.pays_depart == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_depart == 'suede' %} selected {% endif %} value="suede">Suede</option>
+                <option {% if ui.pays_depart == 'norvege' %} selected {% endif %} value="norvege">Norvege</option>
+                <option {% if ui.pays_depart == 'bulgarie' %} selected {% endif %} value="bulgarie">Bulgarie</option>
+                <option {% if ui.pays_depart == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_depart == 'danemark' %} selected {% endif %} value="danemark">Danemark</option>
+                <option {% if ui.pays_depart == 'finlande' %} selected {% endif %} value="finlande">Finlande</option>
+                <option {% if ui.pays_depart == 'techequie' %} selected {% endif %} value="tchequie">tchequie</option>
+                <option {% if ui.pays_depart == 'irlande' %} selected {% endif %} value="irlande">Irlande</option>
+                <option {% if ui.pays_depart == 'estonie' %} selected {% endif %} value="estonie">Estonie</option>
+                <option {% if ui.pays_depart == 'lettonie' %} selected {% endif %} value="lettonie">Lettonie</option>
+                <option {% if ui.pays_depart == 'lituanie' %} selected {% endif %} value="lituanie">Lituanie</option>
+             </select>
+        </div>
+            <div>
+            <input type="text" {% if ui.ville_arriver %} value="{{ ui.ville_arriver }}" {% endif %} name="ville_arriver" placeholder="Ville d'arriver'" class="form-input" required />
+        </div>
+        <div>
+            <select class="form-select" name="pays_arriver">
+                <option>Pays d'expédition</option>
+                <option {% if ui.pays_arriver == 'france' %} selected {% endif %} value="france">France</option>
+                <option {% if ui.pays_arriver == 'royaume uni' %} selected {% endif %} value="royaume uni">Royaume uni</option>
+                <option {% if ui.pays_arriver == 'belgique' %} selected {% endif %} value="belgique">Belgique</option>
+                <option {% if ui.pays_arriver == 'allemagne' %} selected {% endif %} value="allemagne">Allemagne</option>
+                <option {% if ui.pays_arriver == 'italie' %} selected {% endif %} value="italie">Italie</option>
+                <option {% if ui.pays_arriver == 'espagne' %} selected {% endif %} value="espagne">Espagne</option>
+                <option {% if ui.pays_arriver == 'pays_bas' %} selected {% endif %} value="pays bas">Pays bas</option>
+                <option {% if ui.pays_arriver == 'portugal' %} selected {% endif %} value="portugal">Portugal</option>
+                <option {% if ui.pays_arriver == 'suisse' %} selected {% endif %} value="suisse">Suisse</option>
+                <option {% if ui.pays_arriver == 'autriche' %} selected {% endif %} value="autriche">Autriche</option>
+                <option {% if ui.pays_arriver == 'pologne' %} selected {% endif %} value="pologne">Pologne</option>
+                <option {% if ui.pays_arriver == 'roumanie' %} selected {% endif %} value="roumanie">Roumanie</option>
+                <option {% if ui.pays_arriver == 'slovenie' %} selected {% endif %} value="slovenie">Slovenie</option>
+                <option {% if ui.pays_arriver == 'slovaquie' %} selected {% endif %} value="slovaquie">Slovaquie</option>
+                <option {% if ui.pays_arriver == 'croatie' %} selected {% endif %} value="croatie">Croatie</option>
+                <option {% if ui.pays_arriver == 'hongrie' %} selected {% endif %} value="hongrie">Hongrie</option>
+                <option {% if ui.pays_arriver == 'serbie' %} selected {% endif %} value="serbie">Serbie</option>
+                <option {% if ui.pays_arriver == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_arriver == 'suede' %} selected {% endif %} value="suede">Suede</option>
+                <option {% if ui.pays_arriver == 'norvege' %} selected {% endif %} value="norvege">Norvege</option>
+                <option {% if ui.pays_arriver == 'bulgarie' %} selected {% endif %} value="bulgarie">Bulgarie</option>
+                <option {% if ui.pays_arriver == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_arriver == 'danemark' %} selected {% endif %} value="danemark">Danemark</option>
+                <option {% if ui.pays_arriver == 'finlande' %} selected {% endif %} value="finlande">Finlande</option>
+                <option {% if ui.pays_arriver == 'techequie' %} selected {% endif %} value="tchequie">tchequie</option>
+                <option {% if ui.pays_arriver == 'irlande' %} selected {% endif %} value="irlande">Irlande</option>
+                <option {% if ui.pays_arriver == 'estonie' %} selected {% endif %} value="estonie">Estonie</option>
+                <option {% if ui.pays_arriver == 'lettonie' %} selected {% endif %} value="lettonie">Lettonie</option>
+                <option {% if ui.pays_arriver == 'lituanie' %} selected {% endif %} value="lituanie">Lituanie</option>
+             </select>
+        </div>
+        <div>
+            <input type="submit" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" value="envoyer">
+        </div>
+    </form>
+</div>
+{% endblock content %}

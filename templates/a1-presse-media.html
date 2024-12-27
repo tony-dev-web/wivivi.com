@@ -1,0 +1,39 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<section aria-labelledby="titre1 titre2" aria-describedby="des1" class="lg:w-6/12"></section>                       
+<p id="des1">{{ ui.texte1 }}</p>
+<h2 id="titre2" class="text-base font-bold dark:text-white mt-6">Aidez nous à partager notre bourse de fret</h2>
+<img class="mt-6" src="https://wivivi.com/static/img/wivivi-officiel.png" alt="bourse de fret" width="172" height="33">
+<a aria-label="Télécharger le logo" class="font-bold" href="https://wivivi.com/static/img/wivivi-officiel.png" download="wivivi-officiel.png">Télécharger le logo</a>
+
+
+<img class="mt-6" src="https://wivivi.com/static/img/wivivi-affretement.png" alt="wivivi.com" width="500" height="176">
+<a aria-label="Télécharger" class="font-bold" href="https://wivivi.com/static/img/wivivi-affretement.png" download="wivivi-affretement.png">Télécharger la banniere</a>
+
+<img class="mt-6" src="https://wivivi.com/static/img/wivivi-plateforme-fret.png" alt="Plateforme de fret" width="401" height="401">
+<a aria-label="Obtenir l image" class="font-bold" href="https://wivivi.com/static/img/wivivi-plateforme-fret.png" download="wivivi-plateforme-fret.png">Télécharger l'image</a>
+
+<img class="mt-6" src="https://wivivi.com/static/img/fret-3.png" alt="bourse de fret" width="515" height="515">
+<a aria-label="Uploader la banniere" class="font-bold" href="https://wivivi.com/static/img/fret-3.png" download="fret-3.png">Télécharger la banniere</a>
+
+<img class="mt-6" src="https://wivivi.com/static/img/affretement-1.png" alt="bourse affretement" width="601" height="301">
+<a aria-label="Récupérer l'image" class="font-bold" href="https://wivivi.com/static/img/affretement-1.png" download="affretement-1.png">Télécharger l'image</a>
+
+<img class="mt-6" src="https://wivivi.com/static/img/bourse-fret-europe.png" alt="bourse fret europe transport routier" width="1600" height="745">
+<a aria-label="Récupérer la capture d écran" class="font-bold" href="https://wivivi.com/static/img/bourse-fret-europe.png" download="bourse-fret-europe.png">Télécharger la capture d'écran</a>
+
+
+<h2 class="mt-6 text-base font-bold dark:text-white" >Contact presse</h2>
+<p class="text-base" >Tony<p>
+<p class="text-base">Responsable communication et développement</p>
+<div class="mt-2"><a class="c1" href="/contact/">Contact</a></div>
+</section>
+{% endblock content %}

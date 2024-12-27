@@ -1,0 +1,85 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url": "https://wivivi.com/","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<p class="text-sm mt-2 mb-4">Poster des annonces de fret gratuitement et rapidement grâce à Wivivi</p>
+
+<div class="p-5 bg-white border rounded   dark:bg-darklight  ">
+<form method="post">
+
+{% for message in messages %}<div class="col-lg-12 alert {{ message.tags }} mb-4" role="alert"><strong>{{ message }}</strong></div>{% endfor %} 
+       
+<div class="mb-4" ><select class="form-select" name="categorie">
+                    <option>Sélectionner un type de transport</option>
+                    <option value="frigorifique">Frigorifique</option>
+                    <option value="tautliner">Tautliner</option>
+                    <option value="porte-voiture">Porte voiture</option>
+                    <option value="animaux">Animaux</option>
+                    <option value="citerne">Citerne</option>
+                    <option value="benne">Benne</option>
+                    <option value="conteneur">Conteneur</option>
+                    <option value="convoi">Convoi</option>
+                 </select>
+</div>
+
+<div class="mb-4" ><select class="form-select" name="type">
+                    <option>Sélectionner un support</option>
+                    <option value="palette">Palette</option>
+                    <option value="vrac">Vrac</option>
+                    <option value="volume">Volume</option>
+                    <option value="complet">Complet</option>
+                 </select>
+</div>
+
+<div x-data="modals" >
+{% if not request.user.is_authenticated %}
+<div class="text-center mt-4 mb-4">
+<h2 class="text-xl mb-4 font-semibold dark:text-white/80">Vous devez être connecter pour déposé une annonce</h2>
+<button type="button" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" @click="toggle">Formulaire de connexion</button>
+</div>
+{% else %}
+        <div class="m-auto text-center">
+            <input type="submit" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" value="Créer une annonce gratuitement">
+        </div>
+{% endif %}
+    
+<div role="dialog" aria-label="Connexion" tabindex="-1" class="fixed inset-0 bg-black/80 z-[99999] hidden overflow-y-auto dark:bg-dark/90" :class="open && '!block'">
+        <div  class="flex items-start justify-center min-h-screen px-4" @click.self="open = false">
+            <div role="document" x-show="open" x-transition x-transition.duration.300 class="relative w-full max-w-lg p-0 my-8 overflow-hidden bg-white border rounded-lg   dark:bg-darklight  ">
+                <div class="flex items-center justify-between px-5 py-3 bg-white border-b   dark:bg-darklight  ">
+                    <h2 class="mb-2 text-2xl font-semibold text-center dark:text-white">{{ bodys.connexion }}</h2>
+                </div>
+                <div class="p-5 space-y-4">
+                   
+                   
+                   
+    {% if not request.user.is_authenticated %}
+        <div class="w-9/12 m-auto space-y-4 ">
+            {% for message in messages %}
+            <div class="col-lg-12 alert {{ message.tags }} mb-4" role="alert">
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %} 
+    <div>
+        <input type="text" placeholder="Email" class="form-input" required />
+    </div>
+    <button type="submit" class="btn w-full py-2.5 text-base bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.connexion }}</button>
+{% endif %}
+
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <p class="black text-center text-sm mt-6 m-auto">N'oublier pas d'identifiez vos besoins de transport pour ensuite obtenir un contrat d'affretement en cohérence avec la réglementation national et européenne</p>
+                
+</form>
+</div>
+{% endblock content %}

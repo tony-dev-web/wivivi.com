@@ -1,0 +1,167 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<div class="lg:w-8/12 p-5 bg-white border rounded   dark:bg-darklight  ">
+    <form class="space-y-4" method="post" enctype="multipart/form-data">
+        <label for="avatar">Logo :</label>
+        <input type="file" name="logo" accept="image/png, image/jpeg" />
+        <label for="avatar">Kbis :</label>
+        <input type="file" name="kbis"/>
+        <h2 class="mb-4 font-semibold dark:text-white/80">Entreprise</h2>
+        <div>
+            <textarea name="description" {% if ui.description %} value="{{ ui.description }}" {% endif %} class="form-textarea" cols="3" placeholder="Description"></textarea>
+        </div>
+        <div>
+            <input type="number" {% if ui.siren %} value="{{ ui.siren }}" {% endif %} name="siren" placeholder="Siren" class="form-input"/>
+        </div>
+        
+        <div>
+            <input type="text" {% if ui.dirigeant %} value="{{ ui.dirigeant }}" {% endif %} name="dirigeant" placeholder="Nom et prenom du dirigeant" class="form-input" required />
+        </div>
+        
+        <h2 class="mb-4 font-semibold dark:text-white/80">Information complementaitre</h2>
+        <div>
+            <input type="number" {% if ui.superficie %} value="{{ ui.superficie }}" {% endif %} name="superficie" placeholder="Superficie de stockage" class="form-input" />
+        </div>
+        <div>
+            <input type="number" {% if ui.nombre_employer %} value="{{ ui.nombre_employer }}" {% endif %} name="nombre_employer" placeholder="Nombre de d'employer" class="form-input" />
+        </div>
+        {% if ui.groupe == 'transporteur' %}
+        <div>
+            <input type="number" {% if ui.nombre_camion %} value="{{ ui.nombre_camion }}" {% endif %} name="nombre_camion" placeholder="Nombre de camion" class="form-input" />
+        </div>
+        {% endif %}
+        <h2 class="mb-4 font-semibold dark:text-white/80">Coordonnée</h2>
+        <div>
+            <input type="text" {% if ui.adresse %} value="{{ ui.adresse }}" {% endif %} name="adresse" placeholder="Adresse" class="form-input" required />
+        </div>
+        <div>
+            <input type="number" {% if ui.code_postale %} value="{{ ui.code_postale }}" {% endif %} name="code_postale" placeholder="Code postale" class="form-input" required />
+        </div>
+        <div>
+            <input type="text" {% if ui.ville %} value="{{ ui.ville }}" {% endif %} name="ville" placeholder="Ville" class="form-input" required />
+        </div>
+
+
+<select class="form-select" name="departement">
+    <option value="00">Département</option>
+    <option value="ain">01 - Ain </option>
+    <option value="aisne">02 - Aisne </option>
+    <option value="allier">03 - Allier </option>
+    <option value="alpes haute provence">04 - Alpes de Haute Provence </option>
+    <option value="hautes alpes">05 - Hautes Alpes </option>
+    <option value="alpes maritimes">06 - Alpes Maritimes </option>
+    <option value="ardeche">07 - Ardèche </option>
+    <option value="ardennes">08 - Ardennes </option>
+    <option value="ariege">09 - Ariège </option>
+    <option value="aube">10 - Aube </option>
+    <option value="aude">11 - Aude </option>
+    <option value="aveyron">12 - Aveyron </option>
+    <option value="bouches du rhone">13 - Bouches du Rhône </option>
+    <option value="calvados">14 - Calvados </option>
+    <option value="cantal">15 - Cantal </option>
+    <option value="charente">16 - Charente </option>
+    <option value="charente maritime">17 - Charente Maritime </option>
+    <option value="cher">18 - Cher </option>
+    <option value="correze">19 - Corrèze </option>
+    <option value="corse sud">2A - Corse du Sud </option>
+    <option value="corse nord">2B - Haute-Corse </option>
+    <option value="cote or">21 - Côte d'Or </option>
+    <option value="cote armor">22 - Côtes d'Armor </option>
+    <option value="creuse">23 - Creuse </option>
+    <option value="dordogne">24 - Dordogne </option>
+    <option value="doubs">25 - Doubs </option>
+    <option value="drome">26 - Drôme </option>
+    <option value="eure">27 - Eure </option>
+    <option value="eure et loire">28 - Eure et Loir </option>
+    <option value="finistere">29 - Finistère </option>
+    <option value="gard">30 - Gard </option>
+    <option value="haute garonne">31 - Haute Garonne </option>
+    <option value="gers">32 - Gers </option>
+    <option value="gironde">33 - Gironde </option>
+    <option value="herault">34 - Hérault </option>
+    <option value="ille et vilaine">35 - Ille et Vilaine </option>
+    <option value="indre">36 - Indre </option>
+    <option value="indre et loire">37 - Indre et Loire </option>
+    <option value="isere">38 - Isère </option>
+    <option value="jura">39 - Jura </option>
+    <option value="landes">40 - Landes </option>
+    <option value="loir et cher">41 - Loir et Cher </option>
+    <option value="loire">42 - Loire </option>
+    <option value="haute loire">43 - Haute Loire </option>
+    <option value="loire atlantique">44 - Loire Atlantique </option>
+    <option value="loiret">45 - Loiret </option>
+    <option value="lot">46 - Lot </option>
+    <option value="lot et garonne">47 - Lot et Garonne </option>
+    <option value="lozere">48 - Lozère </option>
+    <option value="maine et loire">49 - Maine et Loire </option>
+    <option value="manche">50 - Manche </option>
+    <option value="marne">51 - Marne </option>
+    <option value="hautes marne">52 - Haute Marne </option>
+    <option value="mayenne">53 - Mayenne </option>
+    <option value="meurthe et moselle">54 - Meurthe et Moselle </option>
+    <option value="meuse">55 - Meuse </option>
+    <option value="morbihan">56 - Morbihan </option>
+    <option value="moselle">57 - Moselle </option>
+    <option value="nievre">58 - Nièvre </option>
+    <option value="nord">59 - Nord </option>
+    <option value="oise">60 - Oise </option>
+    <option value="orne">61 - Orne </option>
+    <option value="pas de calais">62 - Pas de Calais </option>
+    <option value="puy de dome">63 - Puy de Dôme </option>
+    <option value="pyrenees atlantiques">64 - Pyrénées Atlantiques </option>
+    <option value="hautes pyrenees">65 - Hautes Pyrénées </option>
+    <option value="pyrenees orientales">66 - Pyrénées Orientales </option>
+    <option value="bas rhin">67 - Bas Rhin </option>
+    <option value="haut rgin">68 - Haut Rhin </option>
+    <option value="rhone">69 - Rhône </option>
+    <option value="haute saone">70 - Haute Saône </option>
+    <option value="saone et loire">71 - Saône et Loire </option>
+    <option value="sarthe">72 - Sarthe </option>
+    <option value="savoie">73 - Savoie </option>
+    <option value="haute savoie">74 - Haute Savoie </option>
+    <option value="paris">75 - Paris </option>
+    <option value="seine maritime">76 - Seine Maritime </option>
+    <option value="seine et marne">77 - Seine et Marne </option>
+    <option value="yvelines">78 - Yvelines </option>
+    <option value="deux sevre">79 - Deux Sèvres </option>
+    <option value="somme">80 - Somme </option>
+    <option value="tarn">81 - Tarn </option>
+    <option value="tarn et garonne">82 - Tarn et Garonne </option>
+    <option value="var">83 - Var </option>
+    <option value="vaucluse">84 - Vaucluse </option>
+    <option value="vendee">85 - Vendée </option>
+    <option value="vienne">86 - Vienne </option>
+    <option value="haute vienne">87 - Haute Vienne </option>
+    <option value="vosges">88 - Vosges </option>
+    <option value="yonne">89 - Yonne </option>
+    <option value="territoire de belfort">90 - Territoire de Belfort </option>
+    <option value="essonne">91 - Essonne </option>
+    <option value="hauts de seine">92 - Hauts de Seine </option>
+    <option value="seine saint denis">93 - Seine Saint Denis </option>
+    <option value="val de marne">94 - Val de Marne </option>
+    <option value="val d'oise">95 - Val d'Oise </option>
+</select>
+
+
+
+        <div>
+            <input type="email" {% if ui.email%} value="{{ ui.email }}" {% endif %} name="email" placeholder="Email de contact" class="form-input" required />
+        </div>
+
+        <div>
+            <input type="text" {% if ui.telephone %} value="{{ ui.telephone }}" {% endif %} name="telephone" placeholder="Telephone" class="form-input"/>
+        </div>
+        <div>
+            <input type="url" {% if ui.site_web %} value="{{ ui.site_web }}" {% endif %} name="site_web" placeholder="Site web" class="form-input"/>
+        </div>
+        <div>
+            <input type="number" {% if ui.annee %} value="{{ ui.annee }}" {% endif %}  name="annee_creation" placeholder="Année de création" class="form-input" />
+        </div>
+        <div>
+            <input type="submit" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" value="envoyer">
+        </div>
+    </form>
+</div>
+{% endblock content %}

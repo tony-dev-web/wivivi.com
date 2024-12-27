@@ -1,0 +1,49 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position": 1,"name": "{{ bodys.layout_nom }}","item": "{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+ 
+<div class="flex flex-col gap-4 min-h-[calc(100vh-212px)]">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="p-5 bg-white border rounded   dark:bg-darklight  ">
+                                <div class="overflow-auto" >
+                                 
+                                    <table class="min-w-[640px] w-full mt-4 table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Expediteur</th>
+                                                <th>Destinataire</th>
+                                                <th>Date</th>
+                                                <th>Kms</th>
+                                                <th>Superficies</th>
+                                                <th>Poids</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           
+                                                {% for up1 in up1 %}
+                                                <tr>
+                                                    <td ><a href="{{ up1.url_frontend }}"><img class="" width="20" height="auto" src="{{ up1.drapeau_expediteur }}"> {{ up1.ville_expediteur }}</a></td>
+                                                    <td ><img class="" width="20" height="auto" src="{{ up1.drapeau_destinataire }}"> {{ up1.ville_destinataire }}</td>
+                                                    <td>{{ up1.date_expediteur|default:"" }}</td>
+                                                    <td>{{ up1.kilometre|default:"" }}</td>
+                                                    <td>{{ up1.superficie|default:"" }}</td>
+                                                    <td>{{ up1.poids|default:"" }}</td>
+                                                 
+                                                </tr>
+                                                {% empty %}<tr><td>{{ bodys.aucun_resultat}}</td></tr>{% endfor %}
+                                      
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}

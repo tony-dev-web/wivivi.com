@@ -1,0 +1,156 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+       
+<div class="flex" >
+<nav class="w-8/12">
+    <ul class="space-y-2 detached-breadcrumb">
+           <li class="flex items-center space-x-2 rtl:space-x-reverse">
+<a class="transition-colors text-black/50 hover:dark:text-darkmuted dark:hover:text-white" href="/">{{ bodys.brea1_index }}</a>
+</li>
+        <li class="text-xl font-semibold dark:text-white"><h1>Bonjour {{ ui.utilisateur }}</h1></li>
+    </ul>
+</nav>
+<div class="w-4/12"><a href="{{ bodys.utilisateur_formulaire_url }}" class="text-right btn bg-purple border border-purple rounded-md text-white transition-all duration-300 hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.modifier_profil }}</a></div>
+</div>
+                    <div class="mt-4 text-3xl font-bold dark:text-white">Credit: {{ ui.credit }}</div>
+                    <div class=""><a href="{{ bodys.paiement_url }}" class="text-purple" >Crédité mon compte</a></div>
+                    <div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                        <h2 class="mb-4 text-base font-semibold dark:text-white/80">Liste des messages</h2>
+                        <a href="{{ bodys.messagerie_url }}" class="block text-purple mb-2 " >{{ bodys.messagerie }}</a>
+                        <div class="overflow-auto">
+                            <table class="min-w-[640px] w-full">
+                                <thead>
+                                    <tr class="ltr:text-left rtl:text-right">
+                                        <th>Utilisateur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for up1 in up1 %}
+                                    <tr>
+                                    <td><a href="{{ up1.url_frontend }}">{{ up1.utilisateur }}</a></td>
+                                    <td>{{ up2.status }}</td>
+                                    <td><a href="{{ up2.url_frontend }}" class="btn2 bg-purple mr-1 border border-purple rounded-md text-white hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.voir }}</a></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td>{{ bodys.aucun_resultat }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+<div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                        <h2 class="mb-4 text-base font-semibold dark:text-white/80">Liste des propositions</h2>
+                        <div class="overflow-auto">
+                            <table class="min-w-[640px] w-full">
+                                <thead>
+                                    <tr class="ltr:text-left rtl:text-right">
+                                        <th>Utilisateur</th>
+                                        <th>Prix</th>
+                                        <th>Status</th>
+                                        <th>Repondre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for up5 in up5 %}
+                                    <tr>
+                                        <td>{{ up5.utilisateur }}</td>
+                                        <td>{{ up5.prix }}</td>
+                                        <td>{{ up5.status }}</td>
+                                        <td><a href="{{ up5.url_frontend }}" class="btn2 bg-purple mr-1 border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.voir }}</a></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td>{{ bodys.aucun_resultat }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                        <h2 class="text-base font-semibold dark:text-white/80">Liste des annonces de fret</h2>
+                        <a href="{{ bodys.fret_formulaire_url }}" class="block text-purple mb-2 " >{{ bodys.fret_formulaire }}</a>
+                        <div class="overflow-auto">
+                            <table class="min-w-[640px] w-full">
+                                <thead>
+                                    <tr class="ltr:text-left rtl:text-right">
+                                        <th>Expedition</th>
+                                        <th>Livraison</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for up2 in up2 %}
+                                    <tr>
+                                        <td>{{ up2.ville_expediteur }} -></td>
+                                        <td>{{ up2.ville_destinataire }}</td>
+                                        <td >{{ up2.status }}</td>
+                                        <td>{% if up2.valide == 1 %}<a href="{{ up2.url_frontend }}" class="btn2 bg-purple mr-1 border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.voir }}</a>{% endif %}<a href="{{ up2.url_formulaire_frontend }}" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.modifier }}</a></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td>{{ bodys.aucun_resultat }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                    <div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                        <h2 class="mb-4 text-base font-semibold dark:text-white/80">Liste des paiements pour credits</h2>
+                        <a href="{{ bodys.paiement_url }}" class="block text-purple mb-2" >{{ bodys.paiement }}</a>
+                        <div class="overflow-auto">
+                            <table class="min-w-[640px] w-full">
+                                <thead>
+                                    <tr class="ltr:text-left rtl:text-right">
+                                        <th>Date</th>
+                                        <th>Somme</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for up4 in up4 %}<tr>
+                                        <td>{{ up4.date_creation }}</td>
+                                        <td>{{ up4.prix }} {{ up4.devise }}</td> 
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td>{{ bodys.aucun_resultat }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+                        <h2 class="text-base font-semibold dark:text-white/80">Demande d'information</h2>
+                         <a href="{{ bodys.contact_url }}" class="block text-purple mb-2" >{{ bodys.contact}}</a>
+                        <div class="overflow-auto">
+                            <table class="min-w-[640px] w-full">
+                                <thead>
+                                    <tr class="ltr:text-left rtl:text-right">
+                                        <th>Date</th>
+                                        <th>Sujet</th>
+                                        <th>Reponse</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for up3 in up3 %}<tr>
+                                        <td>{{ up3.date_creation }}</td>
+                                        <td>{{ up3.sujet }}</td>
+                                        <td>{{ up3.question }}</td>
+        
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td>{{ bodys.aucun_resultat }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>{% endblock content %}

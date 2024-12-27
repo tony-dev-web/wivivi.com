@@ -1,0 +1,25 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "Annuaire des {{ ui.groupe }}s"}]}]}</script>
+{% endblock extra_css %}
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<p id="des1" class="text-sm mt-2 mb-2" >Vous pouvez ajouter votre entreprise à notre référentiel via le formulaire de connexion</p>
+    
+                    <article class="lg:w-6/12 min-h-[calc(100vh-212px)] lg" aria-labelledby="titre1" aria-describedby="des1">
+                            <div class="space-y-4">
+                                    {% for up1 in up1 %}
+                                        <section class="space-y-2 p-3 border rounded dark:bg-darklight" aria-labelledby="t2{{up1.utilisateur_id}}" aria-describedby="d2{{up1.utilisateur_id}}">
+                                            <a href="{{ up1.url_frontend }}"><h2 class="text-xl font-semibold" id="t2{{ up1.utilisateur_id }}">{{ up1.titre }}</h2></a>
+                                            <p id="d2{{up1.utilisateur_id}}" class="text-muted text-sm">{{ up1.description|truncatechars:120 }}</p>
+                                            <div class="items-center"><span class="w-3/12 text-center inline-block border rounded p-1 text-purple border-purple text-xs mr-2" >{{ up1.departement|capfirst }}</span><span class="text-sm">{{ up1.ville|capfirst }}</span></div>
+                                        </section>
+                                    {% empty %}<p>{{ bodys.aucun_resultat}}</p>
+                                    {% endfor %}
+                             
+                            </div>{% if ui.texte1 %}<p class="mt-10 mb-5">{{ ui.texte1 }}</p>{% endif %}
+                        </div>
+                    </article>        
+{% endblock content %}

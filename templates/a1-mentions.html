@@ -1,0 +1,41 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<section aria-labelledby="titre1 titre2">
+<h2 id="titre2" class="text-lg font-semibold dark:text-white">Information sur Wivivi</h2>
+<p>Wivivi - <a  class="c1" href="https://tonydevweb.com" target="_blank" rel="noopener, noreferrer">Tony dev web</a></p>
+<p>72300 Sablé sur sarthe - France</p>
+<p>FR12810953562</p>
+<p>810953562 RCS Le Mans</p>
+<p>Responsable editorial: B.tony</p>
+<p>Pour toute demande de renseignement contactez-nous depuis l'espace contact en bas de la page ou via le lien cidessous</p>
+<h3>Hébergement</h3>
+<p>SCALEWAY - Online.net - SAS BP 438 - 75366 PARIS CEDEX 08 - FR 35 433115904 - 433 115 904 RCS Paris - FRANCE</p>
+<p>CLOUDFLARE FRANCE SAS, 883044646 - 6 pl de la madeleine Paris - France</p>
+<h3>Paiement</h3>
+<p>STRIPE PARIS - 10 boulevard Haussmann 72009 Paris cedex 09 - France</p>
+<h3>Plausible analytics</h3><p>PLAUSIBLE Insights OÜ Västriku tn 2, 50403, Tartu, Estonia - 14709274</p>
+<h2>Conditions générales de ventes</h2><p>Tonydevweb société éditrice de Wivivi</p>
+<h3>Image</h3>
+<p>Aucune image ou illustations ne peut etre utilisé sans le concentement de l'équipe de Wivivi ou Tonydevweb</p>
+<h3>Rétractations</h3>
+<p>Dans le cadre d'une mise en place direct, il n'est pas possible d'avoir un délai de rétractations sur la prestation</p>
+<h3>Moyens de paiement</h3>
+<p>Wivivi accepte les paiements par carte bancaire et portefeuille électronique via la plateforme de paiement Stripe</p>
+<h3>Traitement des données personnelles</h3><p>Vous pouvez consulter et supprimer à tous moment vos données</p>
+<h3>Cookies </h3><p>Aucun cookies n'est mise en place sur la plateforme</p><h3> Protection des données</h3>
+<p>Wivivi.com recueille des informations personnels lors de la mise en ligne d'évenement sur les clients de laplateforme conformément aux regles européenne et française en vigueur</p><h3>Tarification</h3>
+<p>les prix sont affichée ttc ou tva comprise selon les normes en vigueur dans chaque pays soit 20% du prix totalvendeur en France</p>
+<h3>Litige</h3>
+<p>En cas de litige pour défaut de livraisons, remboursement, de traitement d'informations, l'affaire era déposer autribunal de commerce du Mans en Sarthe</p>
+<p>Mise à jour le 27 oct 2024</p>
+<p>Mise en place le 27 oct 2024</p>
+</section>
+{% endblock content %}

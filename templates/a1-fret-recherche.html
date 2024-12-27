@@ -1,0 +1,33 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+                    <div class="flex flex-col gap-4 min-h-[calc(100vh-212px)]">
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <div class="gap-6 p-1 space-y-4">
+                                    <h2 class="text-sm font-semibold my-2">{{ bodys.expediteur}}</h2>   
+                                {% for up1 in up1 %}
+                                    <div class="p-4 bg-white border rounded   dark:bg-darklight  ">
+                                        <a href="{{ up1.url_frontend }}"><div class="text-lg mb-2"><span class="font-semibold">{{ up1.ville_expediteur }}</span> - 
+                                          <span class="font-semibold" >{{ up1.ville_destinataire }}</span></div></a>
+                                        <p class="text-muted mb-1 ">{{ up1.description|truncatechars:160 }}</p>
+                                        <div><span class="c1b">{{ up1.categorie }}</span> {% for up1b in up1b %} - <span>{{ up1b.option }}</span>{% endfor %}</div>
+                                    </div>
+                                {% empty %}<p>{{ bodys.aucun_resultat}}</p>
+                                {% endfor up1 %}
+                                </div>
+
+                                <div class="gap-6 p-1 space-y-4">
+                                    <h2 class="text-sm font-semibold my-2">{{ bodys.destinataire }}</h2>
+                                    {% for up2 in up2 %}
+                                    <div class="p-4 bg-white border rounded   dark:bg-darklight  ">
+                                        <a href="{{ up2.url_frontend }}"><div class="text-lg mb-2" ><span class="font-semibold" >{{ up2.ville_destinataire }}</span> - <span class="font-semibold">{{ up2.ville_expediteur }}</span></div></a>
+                                        <p class="text-muted mb-1">{{ up2.description|truncatechars:160 }}</p>
+                                        <div><span>{{ up2.categorie }}</span> {% for up2b in up2b %} - <span>{{ up2b.option }}</span>{% endfor %}</div>
+                                    </div>
+                                    {% empty %}<p>{{ bodys.aucun_resultat }}</p>
+                                    {% endfor up2 %}
+                                </div>
+                            </div>
+                        </div>   
+{% endblock content %}

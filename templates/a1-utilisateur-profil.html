@@ -1,0 +1,121 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block titre %}{{ ui.titre2|truncatechars:60 }}{% endblock titre %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [
+{"@type":"BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position":2,"name":"/{{ ui.groupe }}/","item":"{{ ui.groupe }}"},{"@type": "ListItem","position": 3,"name": "{{ ui.titre }}"}]},
+{"@type":"ProfilePage",
+      "dateCreated": "{{ ui.date }}",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "{{ ui.utilisateur }}",
+        "identifier": "{{ ui.utilisateur_id }}",
+        "description": "{{ ui.description }}"
+        {% if ui.site_web %} ,"url":"{{ ui.site_web }}"{% endif %}
+        {% if ui.adresse %} ,
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "{{ ui.ville }}",
+            "postalCode": "{{ ui.code_postale }}",
+            "streetAddress": "{{ ui.adresse }}"
+          }{% endif %} }}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+<ol itemscope itemtype="https://schema.org/BreadcrumbList" class="flex flex-wrap items-center space-x-2">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center space-x-2"><a class="text-black/50" itemprop="item" href="/"><span itemprop="name">{{ bodys.brea1_index }}</span></a><meta itemprop="position" content="1" /></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center space-x-2 chev-r"><a class="text-black/50" itemprop="item" href="/{{ ui.groupe }}/"><span itemprop="name">{{ ui.groupe|capfirst }}</span></a><meta itemprop="position" content="2" /></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="mt-2 block w-full"><h1 id="titre1" itemprop="name"><span class="text-xl font-semibold mr-2">{{ ui.titre }}</span> <span class="font-semibold text-sm">{{ ui.ville|capfirst }}</span></h1><meta itemprop="position" content="3" /></li>
+</ol>
+                    <section class="min-h-[calc(100vh-212px)]" aria-labelledby="titre1 titre2" aria-describedby="des1">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="sm:p-2 lg:p-4 bg-white border rounded dark:bg-darklight  ">
+                                    <div class="flex items-center justify-between gap-5">
+                                        <figure class="relative w-32 mb-4">
+                                            <img src="{{ ui.logo|default:'/static/img/photo-2.png' }}" class="border-8 border-light/50" alt="{{ ui.titre }}">
+                                        </figure>
+                                       
+                                        {% if request.user.id == ui.utilisateur_id  %}
+                                            <a href="{{ bodys.fret_formulaire_url }}" class="btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.modifier }}</a>
+                                        {% endif  %}
+                                    </div>
+                                    <div class="flex flex-col md:flex-row gap-7">
+                                        <div class="mt-4 shrink-0 lg:w-6/12 p-1">
+                                                <p class="text-2xl font-bold">{{ ui.titre }}</p>
+                                                <p class="text-muted dark:text-darkmuted">@{{ ui.groupe }}</p>
+                                                <div x-data="modals" >
+                                                <button type="button" class="mt-4 mb-4 btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]" @click="toggle">{{ bodys.contact_expediteur }}</button>
+                                                    
+                                                <aside role="dialog" aria-label="Interaction utilisateur" tabindex="-1" class="fixed inset-0 bg-black/80 z-[99999] hidden overflow-y-auto dark:bg-dark/90" :class="open && '!block'" aria-modal="true" aria-labelledby="modal1" aria-describedby="modal2">
+                                                        <div  class="flex items-start justify-center min-h-screen px-4" @click.self="open = false">
+                                                            <div role="document" x-show="open" x-transition x-transition.duration.300 class="relative w-full max-w-lg p-0 my-8 overflow-hidden bg-white border rounded-lg dark:bg-darklight">
+                                                                <div class="flex items-center justify-between px-5 py-3 bg-white border-b dark:bg-darklight  ">
+                                                                    <h2 id="modal1" class="text-lg font-semibold">Contacter {{ ui.utilisateur }}</h2>
+                                                                </div>
+                                                                <div class="p-5 space-y-4">
+                                                                    {% if request.user.is_authenticated %}
+                                                                        {% if uti.credit >= 1 %}
+                                                                        <form method="post" class="flex items-center gap-4 px-4 py-2 bg-light/20 dark:bg-white/5" >
+                                                                            <input type="text" name="messagerie_message" value="" placeholder="Message" class="flex-1 form-input dark:text-white/80 dark:placeholder:text-white/30 dark:bg-dark dark:focus:border-white/30">
+                                                                            <button type="button" type="submit" class="btn py-3 px-3 bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+                                                                                    <path fill="currentColor" d="M3.5 1.3457C3.58425 1.3457 3.66714 1.36699 3.74096 1.4076L22.2034 11.562C22.4454 11.695 22.5337 11.9991 22.4006 12.241C22.3549 12.3241 22.2865 12.3925 22.2034 12.4382L3.74096 22.5925C3.499 22.7256 3.19497 22.6374 3.06189 22.3954C3.02129 22.3216 3 22.2387 3 22.1544V1.8457C3 1.56956 3.22386 1.3457 3.5 1.3457ZM5 4.38261V11.0001H10V13.0001H5V19.6175L18.8499 12.0001L5 4.38261Z"></path>
+                                                                                </svg>
+                                                                            </button>
+                                                                        </form> {% else %}<p id="dialog_desc">Vous n'avez pas assez de credit pour le moment</p>
+                                                                        <a href="{{ bodys.paiement_url }}" class="mt-4 btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">Acheter des crédits</a>
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        <p id="modal2">Vous n'êtes actuellement pas connecté pour contacter votre interlocuteur</p>
+                                                                        <a href="{{ bodys.connexion_url }}" class="mt-4 btn bg-purple border border-purple rounded-md text-white  hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.connexion }}</a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </aside>
+                                              
+                                            <h2 id="titre2" class="font-bold text-lg">{{ bodys.description }}</h2>
+                                            <p id="des1" class="mt-1">{{ ui.description }}</p>
+
+                                            <h3 class="mt-4 font-bold text-lg">Caractéristique</h3>
+                                                {% if ui.nombre_camion != 0 %}<p class="mt-1">{{ ui.nombre_camion }} camions</p> {% endif %}
+                                                {% if ui.nombre_employer != 0 %}<p class="mt-1">{{ ui.nombre_employer }} employers</p> {% endif %}
+                                                {% if ui.superficie != 0 %}<p class="mt-1">{{ ui.superficie }} m2 de stockage</p> {% endif %} 
+                                            {% if rank != 0 %}
+                                            <h3 class="mt-4 font-bold text-lg">Classement</h3>
+                                            <div><span class="font-bold">{{ rank }}</span><span class="dark:text-darkmuted"> {{ bodys.classement }} {{ ui.groupe }}s</span></div>
+                                            <div><span class="font-bold">{{ ui.vues }}</span><span class="dark:text-darkmuted"> {{ bodys.vues }}</span></div>
+                                            {% endif %}
+                                            
+                                            </div>
+                                           
+                                       
+                                        </div>
+                                        <div class="mt-4 lg:w-6/12 p-1">
+                                            <h2 class="font-bold text-lg">{{ bodys.contact }}</h2>
+                                            <p class="mt-1">{{ ui.adresse }}</p>
+                                            <p class="mt-1">{{ ui.code_postale_ville|capfirst }}</p>
+                                            <p class="mt-1">{{ ui.departement|capfirst }}</p>
+                                            {% if ui.region %}<p class="mt-1">{{ ui.region|capfirst }}, {{ ui.pays|capfirst }}</p>{% endif %}
+                                            {% if request.user.is_authenticated %}{% if ui.telephone %}<p class="mt-2">{{ ui.telephone }}</p>{% endif %}
+                                            {% if ui.email %}<p class="mt-2">{{ ui.email}}</p>{% endif %}{% endif %}
+                                            <div class="mt-2"><a class="c1" href="{{ ui.site_web }}" target="_blank" rel="noopener, nofollow">{{ ui.domaine }}</a></div>
+                                            {% if ui.dirigeant %}
+                                            <h3 class="mt-4 font-bold text-lg">Dirigeant</h3>
+                                            <p class="mt-1">{{ ui.dirigeant|capfirst }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+{% if up1 %}<h2 class="ml-4 font-bold text-base">Ligne régulière {{ ui.utilisateur }}</h2>
+<div class="lg:w-6/12 p-3 bg-white border rounded dark:bg-darklight">
+                                        {% for up1 in up1 %}
+                                                <p class="text-base font-semibold">{{ up1.ville_depart}} - {{ up1.ville_arriver }}</p>
+                                                <div class="items-center mb-4"><span class="text-sm">{{ up1.categorie|capfirst }}</span></div>
+                                        {% endfor %}</div>{% endif %}
+
+                        </sectionv>          
+{% endblock content %}

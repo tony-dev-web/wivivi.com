@@ -1,0 +1,1 @@
+window.addEventListener('load', () => {registerSW();}); async function registerSW() { if ('PwaWorkerWivivi' in navigator) {try {await navigator.PwaWorkerWivivi.register('/static/js/pwa.js');}catch (e) {console.log('SW registration failed');}}}

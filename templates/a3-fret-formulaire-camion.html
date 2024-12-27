@@ -1,0 +1,429 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+<div class="flex">
+        <nav class="w-8/12">
+            {% include "a0-fil-ariane-2.html" %}
+        </nav>
+    
+        <div class="flex w-4/12">{% if request.user.id == ui.utilisateur_id and ui.url_frontend %}<div><a href="{{ ui.url_frontend }}" class="btn bg-purple mr-1 border border-purple rounded-md text-white transition-all duration-300 hover:bg-purple/[0.85] hover:border-purple/[0.85]">{{ bodys.voir }}</a></div>{% endif  %}
+        </div>
+</div>
+                                       
+<div class="lg:w-8/12 p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+
+    <form class="space-y-4" method="post">
+        <h2 class="mb-4 font-semibold dark:text-white/80 capitalize">{{ ui.categorie }} - {{ ui.type }}</h2>
+        
+        {% for message in messages %}<div class="col-lg-12 alert {{ message.tags }} mb-4" role="alert"><strong>{{ message }}</strong></div>{% endfor %} 
+  
+        
+        <div class="flex gap-4">
+            <input type="number" {% if ui.poids %} value="{{ ui.poids }}" {% endif %} name="poids" placeholder="Poids Kg" class="form-input w-4/12 sm:w-6/12 " />
+            <input type="number" {% if ui.kilometre %} value="{{ ui.kilometre }}" {% endif %} name="kilometre" placeholder="Kilometre kms" class="form-input w-4/12 sm:w-6/12 " />
+            <input type="number" {% if ui.valeur_marchandise %} value="{{ ui.valeur_marchandise}}" {% endif %}name="valeur_marchandise" placeholder="Valeur Eur" class="form-input w-4/12 sm:w-6/12" />
+        </div>
+            
+        {% if ui.type == 'palette' %}
+            <div class="flex gap-4">
+            <input type="number" {% if ui.nombre_palette %} value="{{ ui.nombre_palette }}" {% endif %} name="nombre_palette" placeholder="Nombre de palette" class="form-input w-4/12 sm:w-6/12 "/>
+            <input type="number" {% if ui.hauteur_palette %} value="{{ ui.hauteur_palette }}" {% endif %} name="hauteur_palette" placeholder="Hauteur des palettes" class="form-input w-4/12 sm:w-6/12 " />
+            
+            <div class="mb-4" ><select class="form-select" name="dimension_palette">
+                    <option>Dimension des palettes</option>
+                    <option {% if ui.dimension_palette == '80x120cm' %} selected {% endif %} value="80x120cm">80x120cm</option>
+                    <option {% if ui.dimension_palette == '100x120cm' %} selected {% endif %} value="100x120cm">100x120cm</option>
+                 </select>
+            </div></div>
+        
+        {% elif ui.type == 'volume' %}
+            <div class="flex gap-4">
+            <input type="number" {% if ui.superficie %} value="{{ ui.superficie }}" {% endif %} name="superficie" placeholder="Superficie m2" class="form-input w-4/12 sm:w-6/12 "/>
+            <input type="number" {% if ui.volume %} value="{{ ui.volume }}" {% endif %} name="volume" placeholder="Volume m3" class="form-input w-4/12 sm:w-6/12 " />
+            <input type="number" {% if ui.hauteur %} value="{{ ui.hauteur }}" {% endif %} name="hauteur" placeholder="Hauteur m2" class="form-input w-4/12 sm:w-6/12 "/>
+            <input type="number" {% if ui.longueur %} value="{{ ui.longueur }}" {% endif %} name="longueur" placeholder="Longueur m3" class="form-input w-4/12 sm:w-6/12 " />
+            <input type="number" {% if ui.largeur %} value="{{ ui.largeur }}"  {% endif %} name="largeur" placeholder="largeur m3" class="form-input w-4/12 sm:w-6/12 " />
+            </div>
+        {% endif %}
+       
+       
+      
+
+        <div>
+            <textarea class="form-textarea" name="description" cols="5" rows="5" placeholder="Description">{% if ui.description %} {{ ui.description }} {% endif %}</textarea>
+        </div>
+
+        <div>
+            <input type="date" {% if ui.date_validation %}  value="{{ ui.date_validation}}" {% endif %} name="date_validation"  placeholder="Date limite de validité" class="form-input" min="{{ min_date }}" max="{{ max_date }}"/>
+        </div>
+
+        <div class="flex gap-4">
+        <div class="w-6/12 p-5 bg-white border rounded border-black/10 dark:bg-darklight dark:border-darkborder">
+            <h2 class="mb-4 font-semibold dark:text-white/80">Option</h2>
+            <div class="grid grid-cols-1 gap-3">
+                <label class="inline-flex">
+                    <input type="checkbox" class="form-checkbox peer outborder-purple" />
+                    <span class="peer-checked:text-purple">Hayon</span>
+                </label>
+      
+                <label class="inline-flex">
+                    <input type="checkbox" value="Adr" class="form-checkbox peer outborder-success" />
+                    <span class="peer-checked:text-success">Adr</span>
+                </label>
+                <label class="inline-flex">
+                    <input type="checkbox" value="Gps" class="form-checkbox peer outborder-warning" />
+                    <span class="peer-checked:text-warning">Gps</span>
+                </label>
+                <label class="inline-flex">
+                    <input type="checkbox" value="Reprise emballage" class="form-checkbox peer outborder-warning" />
+                    <span class="peer-checked:text-warning">Reprise emballage</span>
+                </label>
+                <label class="inline-flex">
+                    <input type="checkbox" value="transpalette" class="form-checkbox peer outborder-warning" />
+                    <span class="peer-checked:text-warning">Transpalette disponible</span>
+                </label>
+                <label class="inline-flex">
+                    <input type="checkbox" value="Quai expediteur" class="form-checkbox peer outborder-warning" />
+                    <span class="peer-checked:text-warning">Quai expediteur</span>
+                </label>
+                <label class="inline-flex">
+                    <input type="checkbox" value="Quai destinataire" class="form-checkbox peer outborder-warning" />
+                    <span class="peer-checked:text-warning">Quai destinataire</span>
+                </label>
+            </div>
+        </div></div>
+        
+        
+        
+        <h2 class="mb-4 font-semibold dark:text-white/80">Expediteur</h2>
+        <div>
+            <input type="date" {% if ui.date_expediteur %} value="{{ ui.date_expediteur }}" {% endif %} name="date_expediteur" placeholder="Date et heure expediteur" class="form-input" min="{{ min_date }}" max="{{ max_date }}" />
+        </div>
+         <div>
+            <input type="text" {% if ui.utilisateur_expediteur %} value="{{ ui.utilisateur_expediteur }}" {% endif %} name="utilisateur_expediteur" placeholder="Nom de l'expediteur" class="form-input" />
+        </div>
+        <div>
+            <input type="text" {% if ui.adresse_expediteur %}  value="{{ ui.adresse_expediteur }}" {% endif %} name="adresse_expediteur" placeholder="Adresse expediteur" class="form-input" />
+        </div>
+
+        <div>
+            <input type="number" {% if ui.code_postale_expediteur %} value="{{ ui.code_postale_expediteur }}" {% endif %} name="code_postale_expediteur" placeholder="Code postale expediteur" class="form-input" />
+        </div>
+
+        <div>
+            <input type="text" {% if ui.ville_expediteur %} value="{{ ui.ville_expediteur }}" {% endif %} name="ville_expediteur" placeholder="Ville expediteur" class="form-input" />
+        </div>
+        
+        
+        
+        <div>
+            
+            
+<select class="form-select" name="departement_expediteur">
+    <option value="00">Département de l'expediteur</option>
+    <option value="ain">01 - Ain </option>
+    <option value="aisne">02 - Aisne </option>
+    <option value="allier">03 - Allier </option>
+    <option value="alpes haute provence">04 - Alpes de Haute Provence </option>
+    <option value="hautes alpes">05 - Hautes Alpes </option>
+    <option value="alpes maritimes">06 - Alpes Maritimes </option>
+    <option value="ardeche">07 - Ardèche </option>
+    <option value="ardennes">08 - Ardennes </option>
+    <option value="ariege">09 - Ariège </option>
+    <option value="aube">10 - Aube </option>
+    <option value="aude">11 - Aude </option>
+    <option value="aveyron">12 - Aveyron </option>
+    <option value="bouches du rhone">13 - Bouches du Rhône </option>
+    <option value="calvados">14 - Calvados </option>
+    <option value="cantal">15 - Cantal </option>
+    <option value="charente">16 - Charente </option>
+    <option value="charente maritime">17 - Charente Maritime </option>
+    <option value="cher">18 - Cher </option>
+    <option value="correze">19 - Corrèze </option>
+    <option value="corse sud">2A - Corse du Sud </option>
+    <option value="corse nord">2B - Haute-Corse </option>
+    <option value="cote or">21 - Côte d'Or </option>
+    <option value="cote armor">22 - Côtes d'Armor </option>
+    <option value="creuse">23 - Creuse </option>
+    <option value="dordogne">24 - Dordogne </option>
+    <option value="doubs">25 - Doubs </option>
+    <option value="drome">26 - Drôme </option>
+    <option value="eure">27 - Eure </option>
+    <option value="eure et loire">28 - Eure et Loir </option>
+    <option value="finistere">29 - Finistère </option>
+    <option value="gard">30 - Gard </option>
+    <option value="haute garonne">31 - Haute Garonne </option>
+    <option value="gers">32 - Gers </option>
+    <option value="gironde">33 - Gironde </option>
+    <option value="herault">34 - Hérault </option>
+    <option value="ille et vilaine">35 - Ille et Vilaine </option>
+    <option value="indre">36 - Indre </option>
+    <option value="indre et loire">37 - Indre et Loire </option>
+    <option value="isere">38 - Isère </option>
+    <option value="jura">39 - Jura </option>
+    <option value="landes">40 - Landes </option>
+    <option value="loir et cher">41 - Loir et Cher </option>
+    <option value="loire">42 - Loire </option>
+    <option value="haute loire">43 - Haute Loire </option>
+    <option value="loire atlantique">44 - Loire Atlantique </option>
+    <option value="loiret">45 - Loiret </option>
+    <option value="lot">46 - Lot </option>
+    <option value="lot et garonne">47 - Lot et Garonne </option>
+    <option value="lozere">48 - Lozère </option>
+    <option value="maine et loire">49 - Maine et Loire </option>
+    <option value="manche">50 - Manche </option>
+    <option value="marne">51 - Marne </option>
+    <option value="hautes marne">52 - Haute Marne </option>
+    <option value="mayenne">53 - Mayenne </option>
+    <option value="meurthe et moselle">54 - Meurthe et Moselle </option>
+    <option value="meuse">55 - Meuse </option>
+    <option value="morbihan">56 - Morbihan </option>
+    <option value="moselle">57 - Moselle </option>
+    <option value="nievre">58 - Nièvre </option>
+    <option value="nord">59 - Nord </option>
+    <option value="oise">60 - Oise </option>
+    <option value="orne">61 - Orne </option>
+    <option value="pas de calais">62 - Pas de Calais </option>
+    <option value="puy de dome">63 - Puy de Dôme </option>
+    <option value="pyrenees atlantiques">64 - Pyrénées Atlantiques </option>
+    <option value="hautes pyrenees">65 - Hautes Pyrénées </option>
+    <option value="pyrenees orientales">66 - Pyrénées Orientales </option>
+    <option value="bas rhin">67 - Bas Rhin </option>
+    <option value="haut rgin">68 - Haut Rhin </option>
+    <option value="rhone">69 - Rhône </option>
+    <option value="haute saone">70 - Haute Saône </option>
+    <option value="saone et loire">71 - Saône et Loire </option>
+    <option value="sarthe">72 - Sarthe </option>
+    <option value="savoie">73 - Savoie </option>
+    <option value="haute savoie">74 - Haute Savoie </option>
+    <option value="paris">75 - Paris </option>
+    <option value="seine maritime">76 - Seine Maritime </option>
+    <option value="seine et marne">77 - Seine et Marne </option>
+    <option value="yvelines">78 - Yvelines </option>
+    <option value="deux sevre">79 - Deux Sèvres </option>
+    <option value="somme">80 - Somme </option>
+    <option value="tarn">81 - Tarn </option>
+    <option value="tarn et garonne">82 - Tarn et Garonne </option>
+    <option value="var">83 - Var </option>
+    <option value="vaucluse">84 - Vaucluse </option>
+    <option value="vendee">85 - Vendée </option>
+    <option value="vienne">86 - Vienne </option>
+    <option value="haute vienne">87 - Haute Vienne </option>
+    <option value="vosges">88 - Vosges </option>
+    <option value="yonne">89 - Yonne </option>
+    <option value="territoire de belfort">90 - Territoire de Belfort </option>
+    <option value="essonne">91 - Essonne </option>
+    <option value="hauts de seine">92 - Hauts de Seine </option>
+    <option value="seine saint denis">93 - Seine Saint Denis </option>
+    <option value="val de marne">94 - Val de Marne </option>
+    <option value="val d'oise">95 - Val d'Oise </option>
+</select>
+        </div>
+        <div>
+            <select class="form-select" name="pays_expediteur">
+                <option>Pays d'expédition</option>
+                <option {% if ui.pays_expediteur == 'france' %} selected {% endif %} value="france">France</option>
+                <option {% if ui.pays_expediteur == 'royaume uni' %} selected {% endif %} value="royaume uni">Royaume uni</option>
+                <option {% if ui.pays_expediteur == 'belgique' %} selected {% endif %} value="belgique">Belgique</option>
+                <option {% if ui.pays_expediteur == 'allemagne' %} selected {% endif %} value="allemagne">Allemagne</option>
+                <option {% if ui.pays_expediteur == 'italie' %} selected {% endif %} value="italie">Italie</option>
+                <option {% if ui.pays_expediteur == 'espagne' %} selected {% endif %} value="espagne">Espagne</option>
+                <option {% if ui.pays_expediteur == 'pays_bas' %} selected {% endif %} value="pays bas">Pays bas</option>
+                <option {% if ui.pays_expediteur == 'portugal' %} selected {% endif %} value="portugal">Portugal</option>
+                <option {% if ui.pays_expediteur == 'suisse' %} selected {% endif %} value="suisse">Suisse</option>
+                <option {% if ui.pays_expediteur == 'autriche' %} selected {% endif %} value="autriche">Autriche</option>
+                <option {% if ui.pays_expediteur == 'pologne' %} selected {% endif %} value="pologne">Pologne</option>
+                <option {% if ui.pays_expediteur == 'roumanie' %} selected {% endif %} value="roumanie">Roumanie</option>
+                <option {% if ui.pays_expediteur == 'slovenie' %} selected {% endif %} value="slovenie">Slovenie</option>
+                <option {% if ui.pays_expediteur == 'slovaquie' %} selected {% endif %} value="slovaquie">Slovaquie</option>
+                <option {% if ui.pays_expediteur == 'croatie' %} selected {% endif %} value="croatie">Croatie</option>
+                <option {% if ui.pays_expediteur == 'hongrie' %} selected {% endif %} value="hongrie">Hongrie</option>
+                <option {% if ui.pays_expediteur == 'serbie' %} selected {% endif %} value="serbie">Serbie</option>
+                <option {% if ui.pays_expediteur == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_expediteur == 'suede' %} selected {% endif %} value="suede">Suede</option>
+                <option {% if ui.pays_expediteur == 'norvege' %} selected {% endif %} value="norvege">Norvege</option>
+                <option {% if ui.pays_expediteur == 'bulgarie' %} selected {% endif %} value="bulgarie">Bulgarie</option>
+                <option {% if ui.pays_expediteur == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_expediteur == 'danemark' %} selected {% endif %} value="danemark">Danemark</option>
+                <option {% if ui.pays_expediteur == 'finlande' %} selected {% endif %} value="finlande">Finlande</option>
+                <option {% if ui.pays_expediteur == 'techequie' %} selected {% endif %} value="tchequie">tchequie</option>
+                <option {% if ui.pays_expediteur == 'irlande' %} selected {% endif %} value="irlande">Irlande</option>
+                <option {% if ui.pays_expediteur == 'estonie' %} selected {% endif %} value="estonie">Estonie</option>
+                <option {% if ui.pays_expediteur == 'lettonie' %} selected {% endif %} value="lettonie">Lettonie</option>
+                <option {% if ui.pays_expediteur == 'lituanie' %} selected {% endif %} value="lituanie">Lituanie</option>
+             </select>
+        </div>
+        <h2 class="mb-4 font-semibold dark:text-white/80">Destinataire</h2>
+        <div>
+            <input type="date" {% if ui.date_destinataire %} value="{{ ui.date_destinataire }}" {% endif %} name="date_destinataire" placeholder="Date et heure de livraison" class="form-input" min="{{ min_date }}" max="{{ max_date }}"/>
+        </div>
+            <div>
+            <input type="text" {% if ui.utilisateur_destinataire %} value="{{ ui.utilisateur_destinataire }}" {% endif %} name="utilisateur_destinataire" placeholder="Nom du destinataire" class="form-input" />
+        </div>
+        <div>
+            <input type="text" {% if ui.adresse_destinataire %} value="{{ ui.adresse_destinataire }}" {% endif %} name="adresse_destinataire" placeholder="Adresse du destinataire" class="form-input" />
+        </div>
+
+        <div>
+            <input type="text" {% if ui.code_postale_destinataire %} value="{{ ui.code_postale_destinataire }}" {% endif %} name="code_postale_destinataire" placeholder="Code postale du destinataire " class="form-input" />
+        </div>
+
+        <div>
+            <input type="text" {% if ui.ville_destinataire %} value="{{ ui.ville_destinataire }}" {% endif %} name="ville_destinataire" placeholder="Ville du destinataire" class="form-input" />
+        </div>
+       
+        <div>
+            
+            
+<select class="form-select" name="departement_destinataire">
+    <option value="00">Département du destinataire</option>
+    <option value="ain">01 - Ain </option>
+    <option value="aisne">02 - Aisne </option>
+    <option value="allier">03 - Allier </option>
+    <option value="alpes haute provence">04 - Alpes de Haute Provence </option>
+    <option value="hautes alpes">05 - Hautes Alpes </option>
+    <option value="alpes maritimes">06 - Alpes Maritimes </option>
+    <option value="ardeche">07 - Ardèche </option>
+    <option value="ardennes">08 - Ardennes </option>
+    <option value="ariege">09 - Ariège </option>
+    <option value="aube">10 - Aube </option>
+    <option value="aude">11 - Aude </option>
+    <option value="aveyron">12 - Aveyron </option>
+    <option value="bouches du rhone">13 - Bouches du Rhône </option>
+    <option value="calvados">14 - Calvados </option>
+    <option value="cantal">15 - Cantal </option>
+    <option value="charente">16 - Charente </option>
+    <option value="charente maritime">17 - Charente Maritime </option>
+    <option value="cher">18 - Cher </option>
+    <option value="correze">19 - Corrèze </option>
+    <option value="corse sud">2A - Corse du Sud </option>
+    <option value="corse nord">2B - Haute-Corse </option>
+    <option value="cote or">21 - Côte d'Or </option>
+    <option value="cote armor">22 - Côtes d'Armor </option>
+    <option value="creuse">23 - Creuse </option>
+    <option value="dordogne">24 - Dordogne </option>
+    <option value="doubs">25 - Doubs </option>
+    <option value="drome">26 - Drôme </option>
+    <option value="eure">27 - Eure </option>
+    <option value="eure et loire">28 - Eure et Loir </option>
+    <option value="finistere">29 - Finistère </option>
+    <option value="gard">30 - Gard </option>
+    <option value="haute garonne">31 - Haute Garonne </option>
+    <option value="gers">32 - Gers </option>
+    <option value="gironde">33 - Gironde </option>
+    <option value="herault">34 - Hérault </option>
+    <option value="ille et vilaine">35 - Ille et Vilaine </option>
+    <option value="indre">36 - Indre </option>
+    <option value="indre et loire">37 - Indre et Loire </option>
+    <option value="isere">38 - Isère </option>
+    <option value="jura">39 - Jura </option>
+    <option value="landes">40 - Landes </option>
+    <option value="loir et cher">41 - Loir et Cher </option>
+    <option value="loire">42 - Loire </option>
+    <option value="haute loire">43 - Haute Loire </option>
+    <option value="loire atlantique">44 - Loire Atlantique </option>
+    <option value="loiret">45 - Loiret </option>
+    <option value="lot">46 - Lot </option>
+    <option value="lot et garonne">47 - Lot et Garonne </option>
+    <option value="lozere">48 - Lozère </option>
+    <option value="maine et loire">49 - Maine et Loire </option>
+    <option value="manche">50 - Manche </option>
+    <option value="marne">51 - Marne </option>
+    <option value="hautes marne">52 - Haute Marne </option>
+    <option value="mayenne">53 - Mayenne </option>
+    <option value="meurthe et moselle">54 - Meurthe et Moselle </option>
+    <option value="meuse">55 - Meuse </option>
+    <option value="morbihan">56 - Morbihan </option>
+    <option value="moselle">57 - Moselle </option>
+    <option value="nievre">58 - Nièvre </option>
+    <option value="nord">59 - Nord </option>
+    <option value="oise">60 - Oise </option>
+    <option value="orne">61 - Orne </option>
+    <option value="pas de calais">62 - Pas de Calais </option>
+    <option value="puy de dome">63 - Puy de Dôme </option>
+    <option value="pyrenees atlantiques">64 - Pyrénées Atlantiques </option>
+    <option value="hautes pyrenees">65 - Hautes Pyrénées </option>
+    <option value="pyrenees orientales">66 - Pyrénées Orientales </option>
+    <option value="bas rhin">67 - Bas Rhin </option>
+    <option value="haut rgin">68 - Haut Rhin </option>
+    <option value="rhone">69 - Rhône </option>
+    <option value="haute saone">70 - Haute Saône </option>
+    <option value="saone et loire">71 - Saône et Loire </option>
+    <option value="sarthe">72 - Sarthe </option>
+    <option value="savoie">73 - Savoie </option>
+    <option value="haute savoie">74 - Haute Savoie </option>
+    <option value="paris">75 - Paris </option>
+    <option value="seine maritime">76 - Seine Maritime </option>
+    <option value="seine et marne">77 - Seine et Marne </option>
+    <option value="yvelines">78 - Yvelines </option>
+    <option value="deux sevre">79 - Deux Sèvres </option>
+    <option value="somme">80 - Somme </option>
+    <option value="tarn">81 - Tarn </option>
+    <option value="tarn et garonne">82 - Tarn et Garonne </option>
+    <option value="var">83 - Var </option>
+    <option value="vaucluse">84 - Vaucluse </option>
+    <option value="vendee">85 - Vendée </option>
+    <option value="vienne">86 - Vienne </option>
+    <option value="haute vienne">87 - Haute Vienne </option>
+    <option value="vosges">88 - Vosges </option>
+    <option value="yonne">89 - Yonne </option>
+    <option value="territoire de belfort">90 - Territoire de Belfort </option>
+    <option value="essonne">91 - Essonne </option>
+    <option value="hauts de seine">92 - Hauts de Seine </option>
+    <option value="seine saint denis">93 - Seine Saint Denis </option>
+    <option value="val de marne">94 - Val de Marne </option>
+    <option value="val d'oise">95 - Val d'Oise </option>
+</select>
+        </div>
+        <div>
+            <select class="form-select" name="pays_destinataire">
+                <option>Pays de destination</option>
+                <option {% if ui.pays_destinataire == 'france' %} selected {% endif %} value="france">France</option>
+                <option {% if ui.pays_destinataire == 'royaume uni' %} selected {% endif %} value="royaume uni">Royaume uni</option>
+                <option {% if ui.pays_destinataire == 'belgique' %} selected {% endif %} value="belgique">Belgique</option>
+                <option {% if ui.pays_destinataire == 'allemagne' %} selected {% endif %} value="allemagne">Allemagne</option>
+                <option {% if ui.pays_destinataire == 'italie' %} selected {% endif %} value="italie">Italie</option>
+                <option {% if ui.pays_destinataire == 'espagne' %} selected {% endif %} value="espagne">Espagne</option>
+                <option {% if ui.pays_destinataire == 'pays_bas' %} selected {% endif %} value="pays bas">Pays bas</option>
+                <option {% if ui.pays_destinataire == 'portugal' %} selected {% endif %} value="portugal">Portugal</option>
+                <option {% if ui.pays_destinataire == 'suisse' %} selected {% endif %} value="suisse">Suisse</option>
+                <option {% if ui.pays_destinataire == 'autriche' %} selected {% endif %} value="autriche">Autriche</option>
+                <option {% if ui.pays_destinataire == 'pologne' %} selected {% endif %} value="pologne">Pologne</option>
+                <option {% if ui.pays_destinataire == 'roumanie' %} selected {% endif %} value="roumanie">Roumanie</option>
+                <option {% if ui.pays_destinataire == 'slovenie' %} selected {% endif %} value="slovenie">Slovenie</option>
+                <option {% if ui.pays_destinataire == 'slovaquie' %} selected {% endif %} value="slovaquie">Slovaquie</option>
+                <option {% if ui.pays_destinataire == 'croatie' %} selected {% endif %} value="croatie">Croatie</option>
+                <option {% if ui.pays_destinataire == 'hongrie' %} selected {% endif %} value="hongrie">Hongrie</option>
+                <option {% if ui.pays_destinataire == 'serbie' %} selected {% endif %} value="serbie">Serbie</option>
+                <option {% if ui.pays_destinataire == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_destinataire == 'suede' %} selected {% endif %} value="suede">Suede</option>
+                <option {% if ui.pays_destinataire == 'norvege' %} selected {% endif %} value="norvege">Norvege</option>
+                <option {% if ui.pays_destinataire == 'bulgarie' %} selected {% endif %} value="bulgarie">Bulgarie</option>
+                <option {% if ui.pays_destinataire == 'grece' %} selected {% endif %} value="grece">Grece</option>
+                <option {% if ui.pays_destinataire == 'danemark' %} selected {% endif %} value="danemark">Danemark</option>
+                <option {% if ui.pays_destinataire == 'finlande' %} selected {% endif %} value="finlande">Finlande</option>
+                <option {% if ui.pays_destinataire == 'techequie' %} selected {% endif %} value="tchequie">tchequie</option>
+                <option {% if ui.pays_destinataire == 'irlande' %} selected {% endif %} value="irlande">Irlande</option>
+                <option {% if ui.pays_destinataire == 'estonie' %} selected {% endif %} value="estonie">Estonie</option>
+                <option {% if ui.pays_destinataire == 'lettonie' %} selected {% endif %} value="lettonie">Lettonie</option>
+                <option {% if ui.pays_destinataire == 'lituanie' %} selected {% endif %} value="lituanie">Lituanie</option>
+                 </select>
+
+        </div>
+    
+    
+        <h2 class="mb-4 font-semibold dark:text-white/80">Contact du service affretement</h2>
+        <div>
+            <input type="email" {% if ui.email_fret %} value="{{ ui.email_fret }}" {% endif %} name="email_fret" placeholder="Email" class="form-input" />
+        </div>
+        <div>
+            <input type="text" {% if ui.telephone_fret %} value="{{ ui.telephone_fret }}" {% endif %} name="telephone_fret" placeholder="Telephone" class="form-input" />
+        </div>
+        <div>
+            <input type="submit" class="btn bg-purple border border-purple rounded-md text-white transition-all duration-300 hover:bg-purple/[0.85] hover:border-purple/[0.85]" value="Ajouter">
+        </div>
+
+    {% csrf_token %}
+    </form>
+</div>
+{% endblock content %}

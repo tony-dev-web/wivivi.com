@@ -1,0 +1,21 @@
+{% extends "partials/layout.html" %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+{% block content %}
+{% include "a0-fil-ariane-2.html" %}
+<section class="lg:w-6/12" aria-labelledby="titre1">
+    <p>Wivivi est  un projet open source directement disponible sur la plateforme <a class="c1" href="https://github.com/tony-dev-web/wivivi.com">Github</a>. Wivivi.com a pour vocation d'aider les professionnels du transport et les industriels à faciliter les échanges d'une bourse de fret gratuite ou peu onéreuse.</p>
+    <h2 class="mt-10 mb-2 text-base font-bold">Langage de programmation</h2>
+    <p>Wivivi est developper via le langage de programmation en Python par le Framework Django. Son environnement serveur est sous Oracle Linux 8 (Centos8) et Nginx pour le Webserver. Html, Css et Js sont mis en avant pour le Frontend et Django et sont Orm pour le Backend.</p>
+    <h2 class="mt-10 mb-2 text-base font-bold">C'est quoi une bourse de fret open source ?</h2>
+    <p>Le but de l'open source est le partage par la connaissance. Notre travail permet d'affiner et d'améliorer le web généraliste pour d'autres développeurs.</p>
+    <h2 class="mt-10 mb-2 text-base font-bold">Sous quelle licence Wivivi est-il publié?</h2>
+    <p>Sous la version 3 de GNU Affero General Public Licence AGPLv3. <a class="c1" href="https://github.com/tony-dev-web/wivivi.com/blob/main/License">Voir la license</a></p>
+
+
+</section>
+{% endblock content %}

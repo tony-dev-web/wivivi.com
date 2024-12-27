@@ -1,0 +1,66 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<script type="application/ld+json">{"@context": "https://schema.org/", "@graph": [{ "@type": "Organization","url":"{{ bodys.layout_site_web_url }}","logo":"https://wivivi.com/favicon.ico"},
+{"@type": "BreadcrumbList","itemListElement": [{"@type": "ListItem","position":1,"name":"{{ bodys.layout_nom }}","item":"{{ bodys.layout_site_web_url }}"},{"@type": "ListItem","position": 2,"name": "Fret en France","item": "https://wivivi.com/fr/"},{"@type": "ListItem","position": 3,"name": "{{ ui.titre }}"}]}]}</script>
+{% endblock extra_css %}
+
+
+{% block content %}
+<ol itemscope itemtype="https://schema.org/BreadcrumbList" class="flex flex-wrap items-center space-x-2">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center space-x-2"><a class="text-black/50" itemprop="item" href="/"><span itemprop="name">{{ bodys.brea1_index }}</span></a><meta itemprop="position" content="1" /></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center space-x-2 chev-r"><a class="text-black/50" itemprop="item" href="/fr/"><span itemprop="name">{{ bodys.brea2_pays }}</span></a><meta itemprop="position" content="2" /></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="mt-2 block w-full text-xl font-semibold"><h1 id="titre1" itemprop="name">{{ ui.titre }}</h1><meta itemprop="position" content="3" /></li>
+</ol>
+                    <article class="flex flex-col gap-4 min-h-[calc(100vh-212px)]" aria-labelledby="titre1">
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <section class="gap-6 p-1 space-y-4" aria-labelledby="titre2">
+                                    <h2 id="titre2" class="text-sm font-semibold my-2">{{ bodys.expediteur}}</h2>   
+                                {% for up1 in up1 %}
+                                    <div class="p-4 bg-white border rounded dark:bg-darklight  ">
+                                        <a href="{{ up1.url_frontend }}"><div class="text-lg mb-2"><span class="font-semibold">{{ up1.ville_expediteur }}</span> - 
+                                          <span class="font-semibold" >{{ up1.ville_destinataire }}</span></div></a>
+                                        <p class="text-muted mb-1 ">{{ up1.description|truncatechars:120 }}</p>
+                                        <div><span class="c1b">{{ up1.categorie }}</span> {% for up1b in up1b %} - <span>{{ up1b.option }}</span>{% endfor %}</div>
+                                    </div>
+                                {% empty %}<p>{{ bodys.aucun_resultat_pour}} {{ ui.departement|capfirst }}</p>
+                                {% endfor up1 %}
+                                </section>
+
+                                <section class="gap-6 p-1 space-y-4" aria-labelledby="titre3">
+                                    <h2 id="titre3" class="text-sm font-semibold my-2">{{ bodys.destinataire }}</h2>
+                                    {% for up2 in up2 %}
+                                    <div class="p-4 bg-white border rounded dark:bg-darklight  ">
+                                        <a href="{{ up2.url_frontend }}"><div class="text-lg mb-2" ><span class="font-semibold" >{{ up2.ville_destinataire }}</span> - <span class="font-semibold">{{ up2.ville_expediteur }}</span></div></a>
+                                        <p class="text-muted mb-1">{{ up2.description|truncatechars:120 }}</p>
+                                        <div><span>{{ up2.categorie }}</span> {% for up2b in up2b %} - <span>{{ up2b.option }}</span>{% endfor %}</div>
+                                    </div>
+                                    {% empty %}<p>{{ bodys.aucun_resultat_pour }} {{ ui.departement|capfirst }}</p>
+                                    {% endfor up2 %}
+                                </section></div>
+                            
+                            {% if up5 %}<section class="block w-full" aria-labelledby="titre4">
+                                <h2 id="titre4" class="text-sm font-semibold my-2">Transporteur situé en {{ ui.departement|capfirst }}</h2>
+                            {% for up5 in up5 %}
+                                <div class="sm:w-full lg:w-4/12 mb-2 space-y-2 p-3 bg-white border rounded dark:bg-darklight  ">
+                                    <a href="{{ up5.url_frontend }}"><p class="text-lg font-semibold">{{ up5.titre }}</p></a>
+                                    <p class="text-muted text-sm">{{ up5.description|truncatechars:90 }}</p>
+                                    <p class="text-sm">{{ up5.code_postale_ville }}</p>
+                                </div>
+                            {% endfor up5 %} </section>{% endif %}
+
+                            {% if up4 %}<section class="block w-full" aria-labelledby="titre5">
+                                    <h3 id="titre5" class="text-sm font-semibold my-2"><a href="{{ up4.url_frontend }}">Région {{ ui.region }}</a></h3>
+                                    <div class="sm:w-full lg:w-6/12">
+                                    {% for up3 in up3 %}
+                                    <a class="lg:w-6/12 block p-3 mb-2 border rounded dark:bg-darklight  " href="{{ up3.url_frontend }}">{{ up3.departement|capfirst }}</a>
+                                    {% endfor up3 %}</div>
+                                </section>
+                            {% endif %}
+
+                            </div>
+                    
+                    </article>
+                
+{% endblock content %}

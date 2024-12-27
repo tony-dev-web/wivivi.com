@@ -1,0 +1,96 @@
+{% load static %}{% spaceless %}<!DOCTYPE html><html lang="{{ bodys.lang }}" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}{{ ui.titre|truncatechars:60 }}{% endblock titre %}</title>
+    <meta name="description" content="{{ ui.description|truncatechars:160 }}">
+    <link rel="shortcut icon" href="https://wivivi.com/favicon.ico" />
+    {% block extra_css %}{% endblock extra_css %}
+    <link rel="stylesheet" href="https://wivivi.com/static/assets/css/style.css" media="screen">
+    <meta name="theme-color" content="#fff">
+    <script defer src={% static "js/pwa-app.js" %}></script>
+    <script defer data-api="/api/event" data-domain="wivivi.com" src={% static "js/script.js" %}></script>
+{% block og %}<meta property="og:url" content="{{ body.url_frontend|default:'' }}{{ ui.url_frontend|default:'' }}">{% endblock og%}
+<meta property="og:title" content="{{ ui.titre|truncatechars:100 }}">
+<meta property="og:description" content="{{ ui.description|truncatechars:200 }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="{{ bodys.lang }}">
+<meta property="og:site_name" content="Wivivi"></head>
+<body class="vertical main-container" x-data="main"  :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.fullscreen ? 'full' : '',$store.app.mode]">
+        <header class="gap-4 lg:z-10 px-2 border detached-topbar">
+        <a href="/" class="p-3 main-logo" aria-label="logo wivivi {{ bodys.lang }}">
+        <svg role="img" class="mx-auto h-6 logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145.5 29.3" width="105" height="24"><title>Wivivi</title><defs><linearGradient id="b" x1="9.2" y1="16.2" x2="136.9" y2="18.1" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f0e517"></stop><stop offset="1" stop-color="#00afbe"></stop></linearGradient><linearGradient id="c" x1="9.2" y1="13.5" x2="136.9" y2="15.5" xlink:href="#b"></linearGradient><linearGradient id="d" x1="9.2" y1="12.9" x2="136.9" y2="14.9" xlink:href="#b"></linearGradient><linearGradient id="e" x1="9.2" y1="14.3" x2="136.9" y2="16.2" xlink:href="#b"></linearGradient><linearGradient id="f" x1="9.2" y1="16.8" x2="136.9" y2="18.7" xlink:href="#b"></linearGradient><linearGradient id="g" x1="9.2" y1="15.6" x2="136.9" y2="17.5" xlink:href="#b"></linearGradient></defs><path class="m" d="M92.4,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"></path><path class="l" d="M73.5,28.7c.2.4.5.6.9.6,2.4,0,6.2,0,8.6,0,.4,0,.8-.2.9-.6L95,1.4c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0l-5.6-15c-.1-.4-.5-.6-.9-.6h-8.4c-.7,0-1.2.7-.9,1.4l11.1,27.3Z"></path><path class="k" d="M112.6,28.7c.2.4.5.6.9.6,2.4,0,6.2,0,8.6,0,.4,0,.8-.2.9-.6l11.1-27.3c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0l-5.6-15c-.1-.4-.5-.6-.9-.6h-8.4c-.7,0-1.2.7-.9,1.4l11.1,27.3Z"></path><path class="j" d="M0,1.4l11.1,27.3c.2.4.5.6.9.6h8.6c.4,0,.8-.2.9-.6l6-14.9c.2-.4.8-.4.9,0l6,14.9c.2.4.5.6.9.6h8.6c.4,0,.8-.2.9-.6L56.1,1.4c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0L33.8.6c-.1-.4-.5-.6-.9-.6h-9.5c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0L10.3.6c-.1-.4-.5-.6-.9-.6H1C.3,0-.2.7,0,1.4Z"></path><path class="i" d="M53.6,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"></path><path class="h" d="M131.6,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"></path></svg>
+        </a>
+        
+{% if request.user_agent.is_mobile or request.user_agent.is_tablet %}
+           <button arial-label="Boutton menu" class="dark:text-white/80" @click="$store.app.toggleSidebar()" tabindex="0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6">
+                <path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path>
+            </svg>
+        </button>
+      
+{% elif request.user_agent.is_pc %}
+        <form action="/r/" method="Get" class="flex-1 hidden min-[420px]:block relative max-w-[550px] md:max-w-[550px] m-auto" role="search">
+         <input type="text" id="search" name="r" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" class=" dark:text-white/80 dark:placeholder:text-white/30 dark:bg-dark dark:focus:border-white/30 focus:border-black/30 placeholder:text-black/50 border text-sm rounded block w-full pl-3 pr-7 h-10" placeholder="Rechercher du fret" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="liste-rech">
+        <button aria-label="boutton recherche fret" class="btn-search absolute mr-1 inset-y-0 flex items-center right-0 dark:text-white/80" aria-expanded="false" aria-controls="liste-rech"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="w-4 h-4" viewBox="0 0 24 24"><path fill="currentColor" d="M11 2a9 9 0 1 1 0 18 9 9 0 0 1 0-18Zm0 16a7 7 0 1 0 0-14 7 7 0 0 0 0 14Zm8 0 3 3-1 1-3-3 1-1Z"/></svg></button>
+        <ul class="oto1" id="liste-rech" role="listbox" aria-label="Liste recherche" style="display: none;"></ul>
+    </form>
+
+<a href="{{ bodys.fret_formulaire_url }}" class="dark:text-white/80">{{ bodys.depot_annonce}}</a>
+ {% endif %}
+{% if not request.user.is_authenticated %}<a href="{{ bodys.connexion_url }}" class="dark:text-white/80" aria-label="lien connexion">{{ bodys.connexion }}</a>{% endif %}
+
+<button aria-label="boutton nuit" tabindex="0" x-cloak x-show="$store.app.mode === 'light'" @click="$store.app.toggleMode('dark')">
+<svg focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7a7 7 0 0 0 12 4.9v.1a10 10 0 1 1-9.9-10A7 7 0 0 0 10 7Zm-6 5a8 8 0 0 0 15 3.8A9 9 0 0 1 8.3 4.9 8 8 0 0 0 4 12Z"/></svg>
+</button>
+
+<button aria-label="boutton jour" tabindex="0" aria-hidden="true" x-cloak x-show="$store.app.mode === 'dark'" @click="$store.app.toggleMode('light')"> 
+<svg focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="w-5 h-5 dark:text-white/80" viewBox="0 0 24 24"><path fill="currentColor" d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM11 1h2v3h-2V1Zm0 19h2v3h-2v-3ZM3.5 5 5 3.4l2.2 2.1-1.5 1.5-2-2.2ZM17 18.3l1.5-1.5 2 2.2-1.3 1.4-2.2-2.1Zm2.2-14.9L20.5 5l-2.1 2.2-1.5-1.5 2.2-2ZM5.6 17l1.5 1.5-2.2 2-1.4-1.3 2.1-2.2ZM23 11v2h-3v-2h3ZM4 11v2H1v-2h3Z"/></svg>
+</button>
+
+    </header>
+ 
+            <aside class="sidebar w-[240px] h-[calc(100vh-60px)] nav2 detached-menu" arial-label="menu secondaire">
+                        <ol class="relative flex flex-col gap-1" x-data="{ activeMenu: '{{ activeMenu }}' }">
+                            
+                            {% if request.user_agent.is_mobile or request.user_agent.is_tablet %}
+                            <li><a href="{{ bodys.fret_formulaire_url }}" aria-label="lien connexion">{{ bodys.depot_annonce}}</a></li>
+                            {% endif %}
+                            
+                            <li class="my-1 text-sm font-bold text-black/50 mt-5">{{ bodys.pays }}</li>
+                            <li><a href="/fr/">France</a></li>
+                            <li class="my-1 text-sm font-bold text-black/50  mt-10">{{ bodys.professionnel }}</li>
+                            <li><a href="{{ bodys.transporteur_url }}">{{ bodys.transporteur }}</a></li>
+                            <li><a href="{{ bodys.professionnel_url }}">{{ bodys.professionnel }}</a></li>
+                            <li><a href="{{ bodys.commissionnaire_url }}">{{ bodys.commissionnaire }}</a></li>
+                   
+                        {% if request.user.is_authenticated %}
+                            <li class="my-1 text-sm font-bold c2 d mt-5">{{ bodys.usage }}</li>
+                            <li><a href="{{ bodys.compte_url }}">{{ bodys.compte }}</a></li>
+                            <li><a href="{{ bodys.utilisateur_formulaire_url }}">{{ bodys.modifier_profil }}</a></li>
+                            <li><a href="{{ bodys.ligne_formulaire_url }}">{{ bodys.ajouter_ligne }}</a></li>
+                            <li><a href="{{ bodys.messagerie_url }}">{{ bodys.messagerie }}</a></li>
+                            <li><a href="{{ bodys.deconnexion_url }}"> {{ bodys.deconnexion }}</a></li>
+                        {% endif %}
+                        </ol>
+                        <div class="relative sm:p-2 lg:p-4 text-center rounded-md bg-purple help-box mt-10">
+                            <div class="relative -top-6 mx-auto border shadow-[0_0.75rem_1.5rem_rgba(18,38,63,.03)]  bg-white flex items-center justify-center h-12 w-12 rounded-full">    
+                                    <svg focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-1-5h2v2h-2v-2Zm2-1.6v.6h-2v-1.5c0-.6.4-1 1-1a1.5 1.5 0 1 0-1.5-1.8l-2-.4a3.5 3.5 0 1 1 4.5 4Z"/></svg>
+                            </div>
+                            <p class="text-xl text-white">{{ bodys.aide }}</p>
+                            <p class="mt-4 text-white/70">{{ bodys.question }}</p>
+                            <a class="mt-5 btn-white" href="{{ bodys.contact_url }}">{{ bodys.contact }}</a>
+                        </div>
+            </aside>
+
+            <main class="main1 flex-1 space-y-4 dark:bg-dark sm:p-2 lg:p-4">
+                    {% block content %}{% endblock content %}
+                    <footer class="py-2">&copy; {{ bodys.layout_footer }} - <a href="/open-source/">Open source</a> -
+                        <a href="{{ bodys.mentions_url}}">{{ bodys.mentions }}</a> - <a href="/presse-media/">Presse et media</a></footer>
+            </main>
+    
+    <script src={% static "assets/js/alpine-collaspe.min.js" %}></script>
+    <script src={% static "assets/js/alpine-persist.min.js" %}></script>
+    <script src={% static "assets/js/alpine.min.js" %} defer></script>
+    {% block extra_js %}{% endblock extra_js %}
+</body></html>{% endspaceless %}

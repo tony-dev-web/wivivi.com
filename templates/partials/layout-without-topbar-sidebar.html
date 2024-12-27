@@ -1,0 +1,30 @@
+{% load static %}{% spaceless %}<!DOCTYPE html><html lang="{{ bodys.lang }}" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ ui.titre }}</title>
+        <meta name="description" content="{{ ui.description|truncatechars:160 }}" />
+        <link rel="shortcut icon" href="https://wivivi.com/favicon.ico" />
+        {% block extra_css %}{% endblock extra_css %}
+        <link rel="stylesheet" href="https://wivivi.com/static/assets/css/style.css" media="screen" >
+        <script defer data-api="/api/event" data-domain="wivivi.com" src={% static "js/script.js" %}></script>
+    </head>
+    <body x-data="main" class="vertical" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.fullscreen ? 'full' : '',$store.app.mode]">
+    <div class="bg-cover bg-no-repeat">
+        <header class="px-3 lg:px-7 py-4 max-w-[1440px] mx-auto">
+            <nav class="flex flex-wrap items-center justify-between">
+                    <a href="/" class="flex items-center">
+                        <svg role="img" class="mx-auto h-6 logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145.5 29.3" width="105" height="24" ><title>Wivivi</title><defs><style>.h{fill:url(#g);}.i{fill:url(#f);}.j{fill:url(#e);}.k{fill:url(#d);}.l{fill:url(#c);}.m{fill:url(#b);}</style><linearGradient id="b" x1="9.2" y1="16.2" x2="136.9" y2="18.1" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f0e517"/><stop offset="1" stop-color="#00afbe"/></linearGradient><linearGradient id="c" x1="9.2" y1="13.5" x2="136.9" y2="15.5" xlink:href="#b"/><linearGradient id="d" x1="9.2" y1="12.9" x2="136.9" y2="14.9" xlink:href="#b"/><linearGradient id="e" x1="9.2" y1="14.3" x2="136.9" y2="16.2" xlink:href="#b"/><linearGradient id="f" x1="9.2" y1="16.8" x2="136.9" y2="18.7" xlink:href="#b"/><linearGradient id="g" x1="9.2" y1="15.6" x2="136.9" y2="17.5" xlink:href="#b"/></defs><path class="m" d="M92.4,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"/><path class="l" d="M73.5,28.7c.2.4.5.6.9.6,2.4,0,6.2,0,8.6,0,.4,0,.8-.2.9-.6L95,1.4c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0l-5.6-15c-.1-.4-.5-.6-.9-.6h-8.4c-.7,0-1.2.7-.9,1.4l11.1,27.3Z"/><path class="k" d="M112.6,28.7c.2.4.5.6.9.6,2.4,0,6.2,0,8.6,0,.4,0,.8-.2.9-.6l11.1-27.3c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0l-5.6-15c-.1-.4-.5-.6-.9-.6h-8.4c-.7,0-1.2.7-.9,1.4l11.1,27.3Z"/><path class="j" d="M0,1.4l11.1,27.3c.2.4.5.6.9.6h8.6c.4,0,.8-.2.9-.6l6-14.9c.2-.4.8-.4.9,0l6,14.9c.2.4.5.6.9.6h8.6c.4,0,.8-.2.9-.6L56.1,1.4c.3-.7-.2-1.4-.9-1.4h-8.4c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0L33.8.6c-.1-.4-.5-.6-.9-.6h-9.5c-.4,0-.8.3-.9.6l-5.6,15c-.2.4-.8.4-.9,0L10.3.6c-.1-.4-.5-.6-.9-.6H1C.3,0-.2.7,0,1.4Z"/><path class="i" d="M53.6,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"/><path class="h" d="M131.6,17.6l4.5,11.1c.2.4.5.6.9.6h7.5c.7,0,1.2-.7.9-1.4l-8.6-21.6c-.3-.8-1.5-.8-1.8,0l-3.4,8.6c-.3.8-.3,1.7,0,2.6Z"/></svg>
+                    </a>
+            </nav>
+        </header>
+        <main class="min-h-[calc(100vh-134px)] py-4 px-4 sm:px-12 flex justify-center items-center">
+        {% block content %}{% endblock content %}
+        </main>
+    </div>
+        <footer class="py-2">&copy; {{ bodys.layout_footer }}</footer>
+    <script src={% static "assets/js/alpine-collaspe.min.js" %} ></script>
+    <script src={% static "assets/js/alpine-persist.min.js" %} ></script>
+    <script defer src={% static "assets/js/alpine.min.js" %}></script>
+    {% block extra_js %}{% endblock extra_js %}
+</body></html>{% endspaceless %}

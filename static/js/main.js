@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){for(var e=document.getElementsByClassName("wqs"),s=0;s<e.length;s++)e[s].addEventListener("click",myFunction,!1)});var myFunction=function(e){var s=this.getAttribute("data-ta");e.ctrlKey?window.open(decodeURIComponent(window.atob(s))).focus():document.location.href=decodeURIComponent(window.atob(s))};

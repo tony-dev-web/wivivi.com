@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /r/
+Disallow: /api/
+Disallow: /None/
+Disallow: /?source=pwa
+
+User-agent: Screaming Frog SEO Spider
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Yandex
+Disallow: /

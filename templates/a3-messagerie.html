@@ -1,0 +1,121 @@
+{% extends "partials/layout.html" %}
+{% load static %}
+{% block content %}
+<nav class="w-full"><ul class="flex flex-wrap items-center space-x-2">
+                    <li class="flex items-center space-x-2">
+                        <a class="  text-black/50      " href="/">{{ bodys.brea1_index }}</a>
+                    </li>
+                    <li class="flex items-center space-x-2 chev-r">
+                        <a class="  text-black/50      " href="{{ bodys.compte_url }}">{{ bodys.compte }}</a>
+                    </li>
+                   <li class="mt-2 block w-full text-xl font-semibold dark:text-white"><h1>{{ bodys.messagerie }}</h1></li>
+                </ul>
+</nav>
+             
+
+<div class="flex flex-col gap-4 min-h-[calc(100vh-212px)]">
+    <div class="relative flex flex-row items-start gap-4" x-data="{selectedchat: false}">
+        <div class="lg:max-w-[326px] w-full bg-white flex-1 flex flex-col gap-2 border   dark:bg-darklight   rounded">
+            <ul class="space-y-2 h-[calc(100vh-277px)] px-4 overflow-y-auto">
+                {% for up1 in up1 %}
+                <li>
+                    <a href="javascript:;" @click="selectedchat = true" class="flex items-start gap-2 p-2 rounded bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
+                        <div class="flex items-center flex-1 gap-2 p-1">
+                            <div class="w-9 h-9">
+                                <img class="flex-none object-cover overflow-hidden rounded-full" src={% static "assets/images/avatar-6.png" %} alt="">
+                            </div>
+                            <div class="flex-1 ltr:text-left rtl:text-right">
+                                <p class="line-clamp-1 dark:text-white">{{ up1.utilisateur_2_utilisateur }}</p>
+                                <p class="text-xs text-muted line-clamp-1">{{ up1.message }}</p>
+                            </div>
+                        </div>
+                        <div class="ltr:text-right rtl:text-left">
+                            <p class="flex-none text-xs text-muted mb-1.5">{{ up1.temps }}</p>
+                        </div>
+                    </a>
+                </li>
+                {% empty %}<p class="p-4">{{ bodys.aucun_resultat }}</p>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="absolute top-0 left-0 flex-1 w-full bg-white dark:bg-white/5 md:static" :class="!selectedchat ? 'hidden md:block' : ''">
+            <div class="border rounded     dark:bg-darklight">
+                <div class="flex justify-between gap-3 p-3 border-b    ">
+                    <div class="flex items-center gap-2 p-1">
+                        <img class="flex-none object-cover overflow-hidden rounded-full w-9 h-9" src="{{ ui.logo|default:'/static/img/photo-1.png' }}" alt="logo {{ ui.utilisateur }}">
+                        <div>
+                            <p class="dark:text-white">{{ ui.utilisateur }}</p>
+                            <p class="text-xs text-black/40 dark:text-darkmuted">{{ ui.email }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" class="flex items-center justify-center w-6 h-6 bg-transparent rounded sm:w-9 sm:h-9 dark:text-darkmuted    dark:hover:bg-white/5 hover:bg-light/40">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+                                <path fill="currentColor" d="M9.36556 10.6821C10.302 12.3288 11.6712 13.698 13.3179 14.6344L14.2024 13.3961C14.4965 12.9845 15.0516 12.8573 15.4956 13.0998C16.9024 13.8683 18.4571 14.3353 20.0789 14.4637C20.599 14.5049 21 14.9389 21 15.4606V19.9234C21 20.4361 20.6122 20.8657 20.1022 20.9181C19.5723 20.9726 19.0377 21 18.5 21C9.93959 21 3 14.0604 3 5.5C3 4.96227 3.02742 4.42771 3.08189 3.89776C3.1343 3.38775 3.56394 3 4.07665 3H8.53942C9.0611 3 9.49513 3.40104 9.5363 3.92109C9.66467 5.54288 10.1317 7.09764 10.9002 8.50444C11.1427 8.9484 11.0155 9.50354 10.6039 9.79757L9.36556 10.6821ZM6.84425 10.0252L8.7442 8.66809C8.20547 7.50514 7.83628 6.27183 7.64727 5H5.00907C5.00303 5.16632 5 5.333 5 5.5C5 12.9558 11.0442 19 18.5 19C18.667 19 18.8337 18.997 19 18.9909V16.3527C17.7282 16.1637 16.4949 15.7945 15.3319 15.2558L13.9748 17.1558C13.4258 16.9425 12.8956 16.6915 12.3874 16.4061L12.3293 16.373C10.3697 15.2587 8.74134 13.6303 7.627 11.6707L7.59394 11.6126C7.30849 11.1044 7.05754 10.5742 6.84425 10.0252Z"></path>
+                            </svg>
+                        </button>
+                       
+                        <button type="button" x-data="{ dropdown: false}" class="ml-auto dropdown">
+                            <a href="javaScript:;" class="flex items-center justify-center w-6 h-6 bg-transparent rounded sm:w-9 sm:h-9 dark:text-darkmuted    dark:hover:bg-white/5 hover:bg-light/40" @click="dropdown = !dropdown" @keydown.escape="dropdown = false">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+                                    <path fill="currentColor" d="M12 3C11.175 3 10.5 3.675 10.5 4.5C10.5 5.325 11.175 6 12 6C12.825 6 13.5 5.325 13.5 4.5C13.5 3.675 12.825 3 12 3ZM12 18C11.175 18 10.5 18.675 10.5 19.5C10.5 20.325 11.175 21 12 21C12.825 21 13.5 20.325 13.5 19.5C13.5 18.675 12.825 18 12 18ZM12 10.5C11.175 10.5 10.5 11.175 10.5 12C10.5 12.825 11.175 13.5 12 13.5C12.825 13.5 13.5 12.825 13.5 12C13.5 11.175 12.825 10.5 12 10.5Z"></path>
+                                </svg>
+                            </a>
+                            <ul x-show="dropdown" @click.away="dropdown = false" x-transition="" x-transition.duration.300ms="" class="ltr:right-0 rtl:left-0 whitespace-nowrap" style="display: none;">
+                                <li><a href="{{ bodys.compte_url }}">{{ bodys.compte }}</a></li>
+                                <li><a href="{{ bodys.profil_url }}">{{ bodys.profil }}</a></li>
+                            </ul>
+                        </button>
+                    </div>
+                </div>
+                <div class="h-[calc(100vh-346px)] overflow-y-auto bg-transparent p-5">
+                    <div class="grid max-w-4xl grid-cols-1 mx-auto space-y-7">
+                        {% for up2 in up2 %}
+                        
+                        <div class="place-self-start">
+                            <div class="p-5 rounded-lg ltr:rounded-bl-none rtl:rounded-br-none bg-light/50 dark:bg-white/10 dark:text-white">
+                                {{ up2.message }}
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="ltr:text-left rtl:text-right place-self-start">
+                            <div class="p-5 rounded-lg ltr:rounded-bl-none rtl:rounded-br-none bg-light/50 dark:bg-white/10 dark:text-white">
+                                attente de dev
+                            </div>
+                        </div>
+
+              
+
+                        <div class="ltr:text-right rtl:text-left place-self-end">
+                            <div class="p-5 text-white rounded-lg ltr:rounded-bl-none rtl:rounded-br-none bg-purple">
+                                 attente de dev
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                        {% empty %}<p class="p-4 text-center">{{ bodys.aucun_resultat }}</p>
+                        {% endfor %}
+
+                        
+
+                        
+                    </div>
+                </div>
+              
+                    <form method="post" class="flex items-center gap-4 px-4 py-2 bg-light/20 dark:bg-white/5">
+                        <input type="text" name="message" value="" placeholder="Message" class="flex-1 form-input dark:text-white/80 dark:placeholder:text-white/30   dark:bg-dark dark:focus:border-white/30">
+                        <button type="button" class="btn py-3 px-3 bg-purple border border-purple rounded-md text-white hover:bg-purple/[0.85] hover:border-purple/[0.85]">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+                                <path fill="currentColor" d="M3.5 1.3457C3.58425 1.3457 3.66714 1.36699 3.74096 1.4076L22.2034 11.562C22.4454 11.695 22.5337 11.9991 22.4006 12.241C22.3549 12.3241 22.2865 12.3925 22.2034 12.4382L3.74096 22.5925C3.499 22.7256 3.19497 22.6374 3.06189 22.3954C3.02129 22.3216 3 22.2387 3 22.1544V1.8457C3 1.56956 3.22386 1.3457 3.5 1.3457ZM5 4.38261V11.0001H10V13.0001H5V19.6175L18.8499 12.0001L5 4.38261Z"></path>
+                            </svg>
+                        </button>
+                    </form>
+               
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
