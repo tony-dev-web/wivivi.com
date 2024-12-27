@@ -1,7 +1,6 @@
 #import os
 SECRET_KEY = ''
 DEBUG = False
-CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = ['']
 
 ALLOWED_HOSTS = ['']
@@ -27,8 +26,7 @@ MIDDLEWARE = [
     #'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware']
+    'django.contrib.messages.middleware.MessageMiddleware']
 
 ROOT_URLCONF = 'core.urls'
 
